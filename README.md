@@ -55,6 +55,12 @@ pip freeze > requirements.txt
 pip install -r requirements.txt
 ```
 
+## Start flask server
+
+```
+export FLASK_APP=app.py
+flask run
+```
 
 ## start db
 
