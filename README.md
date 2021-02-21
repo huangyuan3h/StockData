@@ -22,13 +22,13 @@ create a venv:
 
 
 ```
-python -m venv .env
+python -m venv .venv
 ```
 
-switch to this env
+switch to this venv
 
 ```bash
-source .env/bin/activate
+source .venv/bin/activate
 ```
 
 switch back
