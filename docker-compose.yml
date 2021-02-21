@@ -1,9 +1,9 @@
-version: "3.9"
+version: "3.3"
 
 services:
   mysql:
     container_name: stock_mysql
-    image: mysql:latest
+    image: mysql:5.7
     restart: always
     environment:
       MYSQL_DATABASE: "stock"
