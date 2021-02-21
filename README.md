@@ -37,6 +37,24 @@ switch back
 deactivate
 ```
 
+## pip requirements
+
+install single package example:
+```
+pip install requests==version
+```
+
+## save to requirement
+```
+pip freeze > requirements.txt
+```
+
+## install the requirement.txt
+
+```
+pip install -r requirements.txt
+```
+
 
 ## start db
 
