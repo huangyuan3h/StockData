@@ -32,4 +32,6 @@ def create_app(test_config=None):
         print(os.getenv('MYSQL_SERVER'))
         return 'Hello, World!'
 
+    from . import sync
+    app.register_blueprint(sync.bp)
     return app
