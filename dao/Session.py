@@ -1,7 +1,7 @@
 
 from sqlalchemy.orm import sessionmaker
 
-from dao.connection import get_engine
+from dao.connection import Connection
 
 
 class Session():
@@ -9,7 +9,7 @@ class Session():
     _sessionTemplate = None
 
     def _init_session(self):
-        self._engine = get_engine()
+        self._engine = Connection.get_engine()
         self._sessionTemplate = sessionmaker(bind=self._engine)
 
     def get_session(self):
