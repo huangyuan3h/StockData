@@ -1,12 +1,11 @@
 from sqlalchemy import Column, String
+from dao import db
 
 
-
-
-class Stock(connection.get_Base()):
+class Stock(db.Model):
     __tablename__ = 'stock'
-    code = Column(String, primary_key=True)
-    name = Column(String)
+    code = Column(String(16), unique=True, primary_key=True)
+    name = Column(String(64), unique=True, nullable=True)
 
     def __repr__(self):
         return "<Stock(name='%s', code='%s')>" % (self.name, self.code)
