@@ -3,12 +3,12 @@ from xueqiu.list import get_list
 
 bp = Blueprint('sync', __name__, url_prefix='/sync')
 
-DEFAULT_LENGTH = 4295
+DEFAULT_LENGTH = 10000 # set as default length
 
 
 @bp.route('/list')
 def list():
-    data = get_list(1, 30)
+    data = get_list(1, DEFAULT_LENGTH)
     stock_list = data['data']['list']
 
     for i in stock_list:
