@@ -17,7 +17,7 @@ def list():
         try:
             from dao.Stock import Stock
             stock = Stock(code=i['symbol'], name=i['name'])
-            session.add(stock)
+            session.merge(stock)
             session.commit()
         except:
             session.rollback()
