@@ -14,8 +14,10 @@ load_dotenv()  # loading config
 app = Flask(__name__)
 app.config.from_object(Config())
 
-register(app)
-start(app)
+# register sqlalchemy
+import dao
+register(app)  # register API router
+start(app)  # start task engine
 
 if __name__ == '__main__':
     app.run()

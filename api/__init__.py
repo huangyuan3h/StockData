@@ -1,8 +1,8 @@
 from flask import Flask
-
-from api import sync, task
+from flask_restful import Api
+from api.StockList import StockList
 
 
 def register(app: Flask):
-    app.register_blueprint(sync.bp)
-    app.register_blueprint(task.bp)
+    api = Api(app)
+    api.add_resource(StockList, '/sync/StockList')
