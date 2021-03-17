@@ -5,7 +5,7 @@ URL = 'https://stock.xueqiu.com/v5/stock/chart/kline.json'
 PARAMS = {
     'symbol': 'SH600519',  # stock code
     'begin': 1615388346474,  # timestamp
-    'period': 'day',  #
+    'period': 'day',  # '1m',
     'type': 'before',  #
     'count': '-1',
     'indicator': 'kline,pe,pb,ps,pcf,market_capital,agt,ggt,balance'
