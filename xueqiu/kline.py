@@ -1,7 +1,10 @@
-import requests
 import time
 
+import requests
+
 URL = 'https://stock.xueqiu.com/v5/stock/chart/kline.json'
+
+period_type = {'5mins': '5m', '1day': 'day'}
 
 PARAMS = {
     'symbol': 'SH600519',  # stock code
@@ -23,8 +26,9 @@ HEADERS = {
 }
 
 
-def get_data(code='SH600519', begin=round(time.time() * 1000), period='day', count='-1'):
-    PARAMS.update({'symbol': code, 'begin': begin, 'period': period, 'count': count})
+def get_data(code='SH600519', begin=round(time.time() * 1000), search_type='after', period='day', count='1'):
+    PARAMS.update({'symbol': code, 'begin': begin, 'period': period, 'type': search_type,
+                   'count': count})
     r = requests.get(url=URL, params=PARAMS, headers=HEADERS)
     return r.json()
 

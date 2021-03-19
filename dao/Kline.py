@@ -1,9 +1,9 @@
 from sqlalchemy import Column, String, Integer, DECIMAL, TIMESTAMP
 
-from dao import db
+from dao import dao
 
 
-class Kline(db.Model):
+class Kline(dao.db.Model):
     __tablename__ = 'kline'
     id = Column(Integer, primary_key=True)
     code = Column(String(16))

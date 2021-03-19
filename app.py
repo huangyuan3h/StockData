@@ -1,8 +1,9 @@
 from dotenv import load_dotenv
 from flask import Flask
 
-from api import register
-from scheduler import start
+from api import register_router
+from scheduler import start_task_manager
+from dao import dao
 
 
 # set configuration values
@@ -15,9 +16,9 @@ app = Flask(__name__)
 app.config.from_object(Config())
 
 # register sqlalchemy
-import dao
-register(app)  # register API router
-start(app)  # start task engine
+dao.register(app)  # data access object
+register_router(app)  # register API router
+start_task_manager(app)  # start task engine
 
 if __name__ == '__main__':
     app.run()
