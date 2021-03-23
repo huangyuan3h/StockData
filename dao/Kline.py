@@ -23,4 +23,6 @@ class Kline(dao.db.Model):
     pcf = Column(DECIMAL(8, 4))  # 市现率
     market_capital = Column(DECIMAL(16, 2))  # 总市值
 
+    def __repr__(self):
+        return "<kline(id='%d', code='%s', timestamp='%d')>" % (self.id, self.code, self.timestamp)
 

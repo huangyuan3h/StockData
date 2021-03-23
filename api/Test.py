@@ -5,5 +5,5 @@ from scheduler.sync_kline import run
 
 class Test(Resource):
     def get(self):
-        run()
+        run('SH600519')
         return OK
