@@ -1,6 +1,6 @@
-import time
-
 import requests
+
+from utils.dateUtils import get_current_timestamp_millisecond
 
 URL = 'https://stock.xueqiu.com/v5/stock/chart/kline.json'
 
@@ -26,7 +26,7 @@ HEADERS = {
 }
 
 
-def get_data(code='SH600519', begin=round(time.time() * 1000), search_type='after', period='day', count='1'):
+def get_data(code='SH600519', begin=get_current_timestamp_millisecond(), search_type='after', period='day', count='1'):
     PARAMS.update({'symbol': code, 'begin': begin, 'period': period, 'type': search_type,
                    'count': count})
     r = requests.get(url=URL, params=PARAMS, headers=HEADERS)
