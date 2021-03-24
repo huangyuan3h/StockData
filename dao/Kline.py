@@ -15,7 +15,7 @@ class Kline(dao.db.Model):
     close = Column(DECIMAL(8, 2))  # 今收
     chg = Column(DECIMAL(8, 2))  # 涨跌价
     percent = Column(DECIMAL(8, 2))  # 涨跌价
-    turnoverrate = Column(DECIMAL(3, 2))  # 换手率
+    turnoverrate = Column(DECIMAL(8, 2))  # 换手率
     amount = Column(DECIMAL(16, 2))  # 成交额
     pe = Column(DECIMAL(8, 4))  # 市盈率
     pb = Column(DECIMAL(8, 4))  # 市净率

@@ -8,5 +8,5 @@ def get_all_code_list():
 def run():
     from scheduler.sync_kline_by_code import run as run_by_code
     codes = get_all_code_list()
-    for code in codes:
+    for code in codes: # todo: use async
         run_by_code(code)
