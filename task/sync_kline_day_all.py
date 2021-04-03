@@ -6,7 +6,7 @@ def get_all_code_list():
 
 
 def run():
-    from scheduler.sync_kline_by_code import run as run_by_code
+    from task.sync_kline_by_code import run as run_by_code
     codes = get_all_code_list()
     for code in codes: # todo: use pool = multiprocessing.Pool(4)
         run_by_code(code)
