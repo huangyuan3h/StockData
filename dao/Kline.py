@@ -8,7 +8,7 @@ class Kline(dao.db.Model):
     id = Column(Integer, primary_key=True)
     code = Column(String(16))
     timestamp = Column(TIMESTAMP)
-    volume = Column(Integer)  # 成交量
+    volume = Column(DECIMAL(16, 0)  # 成交量
     open = Column(DECIMAL(16, 2))  # 今开
     high = Column(DECIMAL(16, 2))  # 最高
     low = Column(DECIMAL(16, 2))  # 最低
@@ -25,4 +25,3 @@ class Kline(dao.db.Model):
 
     def __repr__(self):
         return "<kline(id='%d', code='%s', timestamp='%s')>" % (self.id, self.code, str(self.timestamp))
-
