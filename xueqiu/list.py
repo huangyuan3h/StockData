@@ -1,5 +1,7 @@
 import requests
 
+from xueqiu.CookieManager import cookieManager
+
 URL = 'https://xueqiu.com/service/v5/stock/screener/quote/list'
 
 PARAMS = {
@@ -23,7 +25,8 @@ HEADERS = {
     'Sec-Fetch-Site': 'same-origin',
     'Sec-Fetch-Mode': 'cors',
     'Sec-Fetch-Dest': 'empty',
-    'Referer': 'https://xueqiu.com/hq'
+    'Referer': 'https://xueqiu.com/hq',
+    'Cookie': cookieManager.get_cookies(),
 }
 
 
