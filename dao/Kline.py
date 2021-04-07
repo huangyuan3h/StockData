@@ -8,7 +8,7 @@ class Kline(dao.db.Model):
     id = Column(Integer, primary_key=True)
     code = Column(String(16))
     timestamp = Column(TIMESTAMP)
-    volume = Column(DECIMAL(16, 0)  # 成交量
+    volume = Column(DECIMAL(16, 0))  # 成交量
     open = Column(DECIMAL(16, 2))  # 今开
     high = Column(DECIMAL(16, 2))  # 最高
     low = Column(DECIMAL(16, 2))  # 最低

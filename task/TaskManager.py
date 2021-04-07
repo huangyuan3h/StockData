@@ -28,7 +28,7 @@ class TaskManager(object):
             self._scheduler = BackgroundScheduler(jobstores=self.job_stores, executors=self.executors,
                                                   faults=self.job_defaults,
                                                   timezone=utc)
-            self.scheduler = APScheduler(scheduler=self._scheduler)
+            self.scheduler = APScheduler()
 
     def init_app(self, app):
         self.scheduler.init_app(app)
