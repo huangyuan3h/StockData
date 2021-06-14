@@ -23,12 +23,14 @@ create a venv:
 
 ```
 python -m venv .venv
+conda create -n stockData
 ```
 
 switch to this venv
 
 ```bash
 source .venv/bin/activate
+conda activate stockData
 ```
 
 switch back
@@ -53,6 +55,7 @@ pip freeze > requirements.txt
 
 ```
 pip install -r requirements.txt
+conda install --file requirements.txt
 ```
 
 ## Start flask server
