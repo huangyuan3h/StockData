@@ -5,5 +5,4 @@ from task.sync_kline_day_all import run
 
 class Test(Resource):
     def get(self):
-        run()
         return OK
