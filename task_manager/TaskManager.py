@@ -20,5 +20,8 @@ class TaskManager(object):
     def set_task_list(self, tasks):
         self.task_list = tasks
 
-    def get_active_task(self):
-        print("---get active task---")
+    def get_active_tasks(self):
+        return list(filter(lambda t: t.running, self.task_list))
+
+    def get_task_by_name(self, name):
+        return self.task_list
