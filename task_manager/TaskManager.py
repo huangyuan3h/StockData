@@ -24,4 +24,4 @@ class TaskManager(object):
         return list(filter(lambda t: t.running, self.task_list))
 
     def get_task_by_name(self, name):
-        return self.task_list
+        return next(filter(lambda t: t.name == name, self.task_list))

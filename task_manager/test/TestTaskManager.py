@@ -41,3 +41,13 @@ class TestTaskManager(unittest.TestCase):
         task_manager.set_task_list(mock_task_list2)
         active_result = task_manager.get_active_tasks()
         self.assertEqual(active_result, [mock_task3])
+
+    def test_get_task_by_name(self):
+        task_manager = TaskManager()
+        task_manager.initial()
+
+        mock_task3 = MockTask('t3', mock_fn, running=True)
+        mock_task_list2 = [mock_task1, mock_task3]
+        task_manager.set_task_list(mock_task_list2)
+        result = task_manager.get_task_by_name('t3')
+        self.assertEqual(result, mock_task3)
