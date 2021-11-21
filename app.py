@@ -2,7 +2,7 @@ from dotenv import load_dotenv
 from flask import Flask
 
 from api import register_router
-# from task import taskManager
+# from tasks import taskManager
 from task_manager import task_manager
 from dao import dao
 
@@ -17,7 +17,7 @@ app = Flask(__name__)
 app.config.from_object(Config())
 
 # remove asp schedul but add customer
-# taskManager.init_app(app)  # start task engine
+# taskManager.init_app(app)  # start tasks engine
 # taskManager.start()
 task_manager.initial()
 # register sqlalchemy

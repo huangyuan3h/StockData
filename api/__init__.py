@@ -11,7 +11,7 @@ from api.Test import Test
 def register_router(app: Flask):
     api = Api(app)
 
-    # task manager part
+    # tasks manager part
     api.add_resource(GetTasks, '/tasks')
 
     # functional endpoint

@@ -12,7 +12,7 @@ sync day kline data
 
 class KLineDayByStockCode(Resource):
     def get(self, code):
-        from task import taskManager, sync_kline_by_code
+        from tasks import taskManager, sync_kline_by_code
         taskManager.add_job(func=sync_kline_by_code.run, args=[code],
                           id=f'sync_kline_{code}_{get_current_timestamp_millisecond()}'
                           , next_run_time=datetime.now(), executor="default")

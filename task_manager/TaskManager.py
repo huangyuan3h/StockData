@@ -12,7 +12,7 @@ class TaskManager(object):
 
     def initial(self, work_size=4):
         self.pool = ProcessPoolExecutor(max_workers=work_size)
-        log.info("task manager initial with %s pool", work_size)
+        log.info("tasks manager initial with %s pool", work_size)
 
     def add_task(self, task: Task):
         self.task_list.append(task)

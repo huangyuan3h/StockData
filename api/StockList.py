@@ -3,7 +3,7 @@ import datetime
 from flask_restful import Resource
 
 from api.Response_Code import OK
-from task import taskManager, sync_list
+from tasks import taskManager, sync_list
 from utils.dateUtils import get_current_timestamp_millisecond
 
 '''
