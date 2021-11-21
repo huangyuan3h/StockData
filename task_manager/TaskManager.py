@@ -1,14 +1,7 @@
-import os
 from concurrent.futures import ProcessPoolExecutor, Executor
-from numbers import Number
 from typing import List
 
 from task_manager import Task
-
-
-def task(num: Number):
-    print("--Executing our Task on Process {}".format(os.getpid()))
-    print("--task--", num)
 
 
 class TaskManager(object):

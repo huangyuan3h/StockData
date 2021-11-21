@@ -12,15 +12,15 @@ class MockTasks(Task):
 class TestLogging(unittest.TestCase):
 
     def test_task_basic_fn(self):
-        mockFn = MagicMock(return_value=False)
+        mock_fn = MagicMock(return_value=False)
 
         args = [1, '2', False]
 
         kwargs = {'k1': 'k1', 'k2': 'k2'}
 
-        t1 = MockTasks(name='t1', fn=mockFn, args=args, kwargs=kwargs)
+        t1 = MockTasks(name='t1', fn=mock_fn, args=args, kwargs=kwargs)
         self.assertEqual(t1.name, 't1')
-        self.assertEqual(mockFn, t1.fn)
+        self.assertEqual(mock_fn, t1.fn)
         self.assertEqual(t1.args, args)
         self.assertEqual(t1.kwargs, kwargs)
         self.assertFalse(t1.running)
@@ -33,4 +33,4 @@ class TestLogging(unittest.TestCase):
         self.assertFalse(t1.running)
 
         t1.run()
-        mockFn.assert_called_with(*args, **kwargs)
+        mock_fn.assert_called_with(*args, **kwargs)

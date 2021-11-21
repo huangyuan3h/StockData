@@ -10,6 +10,3 @@ class test_TaskManager(unittest.TestCase):
         taskManager.add_task()
 
 
-
-if __name__ == '__main__':
-    unittest.main()
