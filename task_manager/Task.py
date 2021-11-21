@@ -1,7 +1,7 @@
-from log import log
+from abc import ABC, abstractmethod
 
 
-class Task(object):
+class Task(ABC):
     name = ''
 
     running = False
@@ -10,17 +10,21 @@ class Task(object):
 
     args = None
 
-    def __init__(self, name, fn, args, running=False):
+    kwargs = None
+
+    def __init__(self, name, fn, args, kwargs, running=False):
         self.name = name
         self.fn = fn
         self.args = args
         self.running = running
+        self.kwargs = kwargs
 
     def start(self):
         self.running = True
 
-    def running(self):
-        while self.running:
-            self.running = self.fn()
+    def stop(self):
+        self.running = False
 
-        log.info("--finished--")
+    @abstractmethod
+    def run(self):
+        self.running = self.fn(*self.args, **self.kwargs)
