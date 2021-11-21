@@ -25,12 +25,7 @@ class TestLogging(unittest.TestCase):
         self.assertEqual(t1.kwargs, kwargs)
         self.assertFalse(t1.running)
 
-        t1.start()
-
-        self.assertTrue(t1.running)
-
-        t1.stop()
-        self.assertFalse(t1.running)
-
         t1.run()
         mock_fn.assert_called_with(*args, **kwargs)
+
+        self.assertTrue(t1.to_json() == {'name': 't1', 'running': False})

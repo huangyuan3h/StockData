@@ -25,3 +25,8 @@ class TaskManager(object):
 
     def get_task_by_name(self, name):
         return next(filter(lambda t: t.name == name, self.task_list))
+
+    def start_task(self, name):
+        t: Task = self.get_task_by_name(name)
+        t.running = True
+        self.pool.submit(t.run, t.args, t.kwargs)
