@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 from flask import Flask
 
-from api import register_router
+from api import api
 # from tasks import taskManager
 from task_manager import task_manager
 from dao import dao
@@ -16,7 +16,7 @@ loading_tasks()
 
 # register sqlalchemy
 dao.register(app)  # data access object
-register_router(app)  # register API router
+api.register(app)  # register Api router
 
 
 if __name__ == '__main__':
