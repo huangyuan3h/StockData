@@ -11,7 +11,7 @@ class Api(object):
     def register(self, app: Flask):
         self.app = app
         self.api = FlaskApi(app)
-        import_module('api.GetTasks')
+        import_module('api.initial_resources')
 
     def get_flask_api(self):
         return self.api
