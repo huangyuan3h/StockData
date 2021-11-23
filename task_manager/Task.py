@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 
 class Task(ABC):
-    id = uuid.uuid4()
+    id = ''
 
     name = ''
 
@@ -15,7 +15,8 @@ class Task(ABC):
 
     kwargs = None
 
-    def __init__(self, name, args=None, kwargs=None, running=False):
+    def __init__(self, name, task_id=uuid.uuid4(), args=None, kwargs=None, running=False):
+        self.id = task_id
         self.name = name
         self.args = args
         self.running = running
@@ -26,4 +27,4 @@ class Task(ABC):
         pass
 
     def to_json(self):
-        return {"name": self.name, "running": self.running, 'id': self.id}
+        return {"name": self.name, "running": self.running, 'id': str(self.id)}

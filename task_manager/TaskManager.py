@@ -23,10 +23,11 @@ class TaskManager(object):
     def get_active_tasks(self):
         return list(filter(lambda t: t.running, self.task_list))
 
-    def get_task_by_name(self, name):
-        return next(filter(lambda t: t.name == name, self.task_list))
+    def get_task_by_id(self, task_id: str):
+        return next(filter(lambda t: t.id == task_id, self.task_list))
 
-    def start_task(self, name):
-        t: Task = self.get_task_by_name(name)
+    def start_task(self, task_id: str):
+        t: Task = self.get_task_by_id(task_id)
         t.running = True
         self.pool.submit(t.run, t.args, t.kwargs)
+        return t.to_json()

@@ -21,3 +21,4 @@ class SyncStockListTask(Task):
         except:
             session.rollback()
             raise
+        return self
