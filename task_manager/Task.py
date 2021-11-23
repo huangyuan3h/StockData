@@ -1,7 +1,10 @@
+import uuid
 from abc import ABC, abstractmethod
 
 
 class Task(ABC):
+    id = uuid.uuid4()
+
     name = ''
 
     description = ''
@@ -23,4 +26,4 @@ class Task(ABC):
         pass
 
     def to_json(self):
-        return {"name": self.name, "running": self.running}
+        return {"name": self.name, "running": self.running, 'id': self.id}

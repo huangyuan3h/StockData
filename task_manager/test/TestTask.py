@@ -24,4 +24,4 @@ class TestLogging(unittest.TestCase):
 
         t1.run()
 
-        self.assertTrue(t1.to_json() == {'name': 't1', 'running': False})
+        self.assertTrue(t1.to_json() == {'name': 't1', 'running': False, 'id': t1.id})
