@@ -1,4 +1,5 @@
 import unittest
+import uuid
 
 from task_manager import Task
 from task_manager.TaskManager import TaskManager
@@ -6,7 +7,7 @@ from task_manager.TaskManager import TaskManager
 
 class MockTask(Task):
     def run(self):
-        self.running = self.fn(*self.args, **self.kwargs)
+        self.running = False
 
 
 mock_task1 = MockTask('t1')
@@ -39,12 +40,14 @@ class TestTaskManager(unittest.TestCase):
         active_result = task_manager.get_active_tasks()
         self.assertEqual(active_result, [mock_task3])
 
-    def test_get_task_by_name(self):
+    def test_get_task_by_id(self):
         task_manager = TaskManager()
         task_manager.initial()
 
-        mock_task3 = MockTask('t3', task_id='3', running=True)
+        tid = uuid.uuid4()
+
+        mock_task3 = MockTask('t3', task_id=tid, running=True)
         mock_task_list2 = [mock_task1, mock_task3]
         task_manager.set_task_list(mock_task_list2)
-        result = task_manager.get_task_by_id('3')
+        result = task_manager.get_task_by_id(tid)
         self.assertEqual(result, mock_task3)
