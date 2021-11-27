@@ -31,5 +31,7 @@ class TaskManager(object):
     def start_task(self, task_id: str):
         t: Task = self.get_task_by_id(task_id)
         t.running = True
-        self.pool.submit(t.run, t.args, t.kwargs)
+        x = self.pool.submit(t.run, *t.args, **t.kwargs)
+        log.info("task %s has been submit to pool", t.name)
+        x.result()
         return t

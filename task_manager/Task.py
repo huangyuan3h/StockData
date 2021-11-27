@@ -15,7 +15,7 @@ class Task(ABC):
 
     kwargs = None
 
-    def __init__(self, name, task_id=uuid.uuid4(), args=None, kwargs=None, running=False):
+    def __init__(self, name, task_id=uuid.uuid4(), args=[], kwargs={}, running=False):
         self.id = task_id
         self.name = name
         self.args = args
@@ -23,7 +23,7 @@ class Task(ABC):
         self.kwargs = kwargs
 
     @abstractmethod
-    def run(self):
+    async def run(self):
         pass
 
     def to_json(self):
