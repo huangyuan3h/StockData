@@ -1,10 +1,17 @@
+amqp==5.0.6
 aniso8601 @ file:///tmp/build/80754af9/aniso8601_1614708839015/work
 attrs @ file:///tmp/build/80754af9/attrs_1620827162558/work
+billiard==3.6.4.0
 brotlipy==0.7.0
+cached-property==1.5.2
+celery==5.2.1
 certifi==2021.10.8
 cffi @ file:///opt/concourse/worker/volumes/live/093393a7-be0b-4332-5349-471010dae068/volume/cffi_1636541934284/work
 chardet @ file:///opt/concourse/worker/volumes/live/9efbf151-b45b-463d-6340-a5c399bf00b7/volume/chardet_1607706825988/work
 click==8.0.3
+click-didyoumean==0.3.0
+click-plugins==1.1.1
+click-repl==0.2.0
 cryptography @ file:///opt/concourse/worker/volumes/live/3a00959b-c8b7-4878-6ff0-ab8e24d27201/volume/cryptography_1635366586923/work
 Flask==1.1.2
 Flask-RESTful @ file:///home/conda/feedstock_root/build_artifacts/flask-restful_1622406740831/work
@@ -15,10 +22,12 @@ importlib-metadata @ file:///opt/concourse/worker/volumes/live/f3c3a723-0733-424
 iniconfig @ file:///home/linux1/recipes/ci/iniconfig_1610983019677/work
 itsdangerous @ file:///tmp/build/80754af9/itsdangerous_1621432558163/work
 Jinja2 @ file:///tmp/build/80754af9/jinja2_1635780242639/work
+kombu==5.2.2
 MarkupSafe @ file:///opt/concourse/worker/volumes/live/2165c944-5d03-464f-57c1-1df4e51b3ac3/volume/markupsafe_1621528146825/work
 more-itertools @ file:///tmp/build/80754af9/more-itertools_1635423142362/work
 packaging @ file:///tmp/build/80754af9/packaging_1625611678980/work
 pluggy @ file:///opt/concourse/worker/volumes/live/f85b5d5a-abad-4f46-46ad-4ead594efa77/volume/pluggy_1615976299968/work
+prompt-toolkit==3.0.23
 py @ file:///tmp/build/80754af9/py_1607971587848/work
 pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
 PyMySQL @ file:///home/conda/feedstock_root/build_artifacts/pymysql_1610208984992/work
@@ -35,5 +44,7 @@ SQLAlchemy @ file:///opt/concourse/worker/volumes/live/54c08a42-0aff-49ad-5caa-e
 toml @ file:///tmp/build/80754af9/toml_1616166611790/work
 typing-extensions @ file:///tmp/build/80754af9/typing_extensions_1631814937681/work
 urllib3==1.26.7
+vine==5.0.0
+wcwidth==0.2.5
 Werkzeug @ file:///tmp/build/80754af9/werkzeug_1635505089296/work
 zipp @ file:///tmp/build/80754af9/zipp_1633618647012/work
