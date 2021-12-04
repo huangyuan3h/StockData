@@ -1,10 +1,13 @@
 import uuid
 from concurrent.futures import ProcessPoolExecutor, Executor
-from multiprocessing import Process
 from typing import List
+
+from celery import Celery
+from flask import Flask
 
 from log import log
 from task_manager import Task
+from task_manager.make_celery import make_celery
 
 
 class TaskManager(object):
@@ -12,8 +15,11 @@ class TaskManager(object):
 
     pool: Executor = None
 
-    def initial(self, work_size=4):
+    celery: Celery = None
+
+    def initial(self, app: Flask, work_size=4):
         self.pool = ProcessPoolExecutor(max_workers=work_size)
+        self.celery = make_celery(app)
         log.info("tasks manager initial with %s pool", work_size)
 
     def add_task(self, task: Task):

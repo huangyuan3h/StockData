@@ -11,7 +11,8 @@ from tasks import loading_tasks
 load_dotenv()  # loading config
 app = Flask(__name__)
 
-task_manager.initial()
+task_manager.initial(app)
+celery = task_manager.celery
 loading_tasks()
 
 # register sqlalchemy

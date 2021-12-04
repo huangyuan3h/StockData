@@ -38,6 +38,7 @@ pytest==6.2.3
 python-dateutil @ file:///tmp/build/80754af9/python-dateutil_1626374649649/work
 python-dotenv @ file:///home/conda/feedstock_root/build_artifacts/python-dotenv_1619733560351/work
 pytz==2021.3
+redis==3.5.3
 requests @ file:///home/conda/feedstock_root/build_artifacts/requests_1608156231189/work
 six @ file:///tmp/build/80754af9/six_1623709665295/work
 SQLAlchemy @ file:///opt/concourse/worker/volumes/live/54c08a42-0aff-49ad-5caa-e2821b6e87d2/volume/sqlalchemy_1626948444796/work
