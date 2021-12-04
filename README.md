@@ -71,6 +71,11 @@ export FLASK_APP=app.py
 flask run
 ```
 
+start celery:
+```
+celery -A app.celery worker
+```
+
 ## start db
 
 ```
