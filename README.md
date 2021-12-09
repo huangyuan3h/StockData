@@ -55,6 +55,7 @@ conda remove packagename
 ## save to requirement
 ```
 pip freeze > requirements.txt
+conda list -e > requirements.txt
 ```
 
 ## install the requirement.txt
