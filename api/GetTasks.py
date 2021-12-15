@@ -1,5 +1,5 @@
 from api.Response_Code import OK
 
 
-def get_task(self):
+def get_task():
     return OK
