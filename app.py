@@ -15,6 +15,10 @@ load_dotenv()  # loading config
 app = Flask(__name__)
 app.config.from_object(Config())
 
+@app.route('/')
+def index():
+    return 'ok'
+
 taskManager.init_app(app)  # start task engine
 taskManager.start()
 

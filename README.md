@@ -23,6 +23,7 @@ create a venv:
 
 ```
 python -m venv .venv
+or
 conda create -n stockData
 ```
 
@@ -30,6 +31,7 @@ switch to this venv
 
 ```bash
 source .venv/bin/activate
+or
 conda activate stockData
 ```
 
