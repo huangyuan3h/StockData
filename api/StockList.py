@@ -1,15 +1,14 @@
-from flask_restful import Resource
+import datetime
 
 from api.Response_Code import OK
-
+from utils.dateUtils import get_current_timestamp_millisecond
 
 '''
 sync all stock data
 '''
 
 
-class StockList(Resource):
-
-    def get(self):
-        return OK
-
+def start_sync_stock_list():
+    # sync_list
+# run
+    return OK
