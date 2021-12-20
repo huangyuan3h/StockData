@@ -5,4 +5,7 @@ python-dateutil
 python-dotenv
 requests
 SQLAlchemy
+Flask-SQLAlchemy
 watchdog
+Celery
+redis
