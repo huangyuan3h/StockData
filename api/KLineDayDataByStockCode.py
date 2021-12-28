@@ -1,9 +1,7 @@
-from datetime import datetime
-
 from api.Response_Code import OK
-from utils.dateUtils import get_current_timestamp_millisecond
+from tasks import run_by_code
 
 
 def start_sync_stock_by_code(code:str):
-# sync_kline_by_code.run
+    run_by_code.delay(code)
     return OK
