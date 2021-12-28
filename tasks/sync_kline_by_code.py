@@ -1,3 +1,4 @@
+from task_manager import task_manager
 from utils.dateUtils import to_db_timestamp, to_timestamp_millisecond, get_today_millisecond
 from xueqiu.kline import period_type, get_data
 
@@ -16,12 +17,13 @@ def get_last(code):
     return result
 
 
-def run(code):
+@task_manager.celery.task()
+def sync_kline_by_code(code):
     last_record = get_last(code)
     start_date_param = start_date if (last_record is None) else (
         to_timestamp_millisecond(last_record.timestamp) + one_day)  # next day of last record
 
-    if start_date_param == get_today_millisecond() + one_day: # if the data has been sync skip
+    if start_date_param == get_today_millisecond() + one_day:  # if the data has been sync skip
         return None
     data = get_data(code=code, begin=start_date_param, period=DEFAULT_MODE, count=str(count))
     kline_list = data['data']['item']

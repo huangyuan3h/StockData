@@ -1,3 +1,6 @@
+from task_manager import task_manager
+
+
 def get_all_code_list():
     from dao.Stock import Stock
     stocks = Stock.query.all()
@@ -5,8 +8,9 @@ def get_all_code_list():
     return codes
 
 
-def run():
-    from task.sync_kline_by_code import run as run_by_code
+@task_manager.celery.task()
+def sync_kline_day_all():
+    from tasks import run_by_code
     codes = get_all_code_list()
-    for code in codes: # todo: use pool = multiprocessing.Pool(4)
+    for code in codes:
         run_by_code(code)

@@ -1,11 +1,11 @@
-APScheduler
 Flask
-Flask-APScheduler
-Flask-SQLAlchemy
 PyMySQL
 pytest
 python-dateutil
 python-dotenv
 requests
 SQLAlchemy
+Flask-SQLAlchemy
 watchdog
+Celery
+redis

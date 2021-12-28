@@ -48,9 +48,16 @@ install single package example:
 pip install requests==version
 ```
 
+## pip remove the requirement
+
+```ssh
+conda remove packagename
+```
+
 ## save to requirement
 ```
 pip freeze > requirements.txt
+conda list -e > requirements.txt
 ```
 
 ## install the requirement.txt
@@ -65,6 +72,11 @@ conda install --file requirements.txt
 ```
 export FLASK_APP=app.py
 flask run
+```
+
+start celery:
+```
+celery -A app.celery worker
 ```
 
 ## start db
