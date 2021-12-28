@@ -4,7 +4,6 @@ from flask import Flask
 from api import register_router
 from dao import dao
 from task_manager import task_manager
-from tasks import loading_tasks
 
 
 # set configuration values
@@ -24,7 +23,6 @@ def index():
 
 task_manager.initial(app)
 celery = task_manager.celery
-loading_tasks()
 
 # register sqlalchemy
 dao.register(app)  # data access object

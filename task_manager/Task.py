@@ -1,8 +1,9 @@
 import uuid
-from abc import ABC, abstractmethod
+from abc import ABC
+import celery
 
 
-class Task(ABC):
+class Task(celery.Task, ABC):
     id = ''
 
     name = ''
@@ -21,10 +22,6 @@ class Task(ABC):
         self.args = args
         self.running = running
         self.kwargs = kwargs
-
-    @abstractmethod
-    async def run(self):
-        pass
 
     def to_json(self):
         return {"name": self.name, "running": self.running, 'id': str(self.id)}

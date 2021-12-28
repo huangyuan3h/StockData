@@ -1,14 +1,9 @@
-import datetime
-
 from api.Response_Code import OK
-from utils.dateUtils import get_current_timestamp_millisecond
+from tasks import sync_stock_list
 
 '''
 sync all stock data
 '''
-
-
 def start_sync_stock_list():
-    # sync_list
-# run
+    sync_stock_list.delay()
     return OK
