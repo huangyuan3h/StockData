@@ -3,7 +3,7 @@ from log import log
 
 
 def get_all_code_list():
-    from dao.Stock import Stock
+    from dao.model.Stock import Stock
     stocks = Stock.query.all()
     codes = list(map(lambda stock: stock.code, stocks))
     return codes

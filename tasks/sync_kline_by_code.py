@@ -12,7 +12,7 @@ count = 244 * 5  # 244 trade days *5 years
 
 
 def get_last(code):
-    from dao.Kline import Kline
+    from dao.model.Kline import Kline
     result = Kline.query.filter_by(code=code).order_by(Kline.timestamp.desc()).first()
     return result
 
@@ -28,7 +28,7 @@ def sync_kline_by_code(code):
     data = get_data(code=code, begin=start_date_param, period=DEFAULT_MODE, count=str(count))
     kline_list = data['data']['item']
     from dao import dao
-    from dao.Kline import Kline
+    from dao.model.Kline import Kline
     session = dao.db.session
 
     try:

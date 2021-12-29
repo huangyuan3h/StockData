@@ -12,7 +12,7 @@ def sync_stock_list():
     log.info("stock list contains %s has been pulled from server", len(data))
     stock_list = data['data']['list']
     from dao import dao
-    from dao.Stock import Stock
+    from dao.model.Stock import Stock
     session = dao.db.session
 
     try:
