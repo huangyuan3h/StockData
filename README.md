@@ -2,8 +2,6 @@
 
 This project is to do some data process for stock for myself.
 
-
-
 ## python setting
 
 ```
@@ -67,19 +65,10 @@ pip install -r requirements.txt
 conda install --file requirements.txt
 ```
 
-## Start flask server
+## start project
 
-```
-export FLASK_APP=app.py
-flask run
-```
 
-start celery:
-```
-celery -A app.celery worker
-```
-
-## start db
+### 1. start db
 
 ```
 docker-compose up -d
@@ -89,5 +78,40 @@ close
 
 ```
 docker-compose down
+```
+
+
+### 2. configure dot env
+
+There is a file called .env.example in this project.
+
+Before run the application, the dot env file should be created:
+
+create a file called `.env`, add the env setting like:
+
+```
+FLASK_ENV=development
+FLASK_APP=app.py
+
+## db configure
+MYSQL_SERVER=localhost
+MYSQL_PORT=3306
+MYSQL_USERNAME=root
+MYSQL_PASSWORD=root
+MYSQL_DB=stock
+
+CELERY_BROKER_URL=redis://localhost:6379
+CELERY_RESULT_BACKEND=redis://localhost:6379
+```
+### 3. start celery:
+```
+celery -A app.celery worker
+```
+
+### 4. Start flask server
+
+```
+export FLASK_APP=app.py
+flask run
 ```
 
