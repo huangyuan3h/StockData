@@ -25,3 +25,6 @@ class Kline(dao.db.Model):
 
     def __repr__(self):
         return "<kline(id='%d', code='%s', timestamp='%s')>" % (self.id, self.code, str(self.timestamp))
+
+    def as_dict(self):
+        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
