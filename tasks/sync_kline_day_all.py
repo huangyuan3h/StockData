@@ -1,11 +1,10 @@
+from dao.stock_process import get_stock_code_list
 from task_manager import task_manager
 from log import log
 
 
 def get_all_code_list():
-    from dao.model.Stock import Stock
-    stocks = Stock.query.all()
-    codes = list(map(lambda stock: stock.code, stocks))
+    codes = get_stock_code_list()
     return codes
 
 
