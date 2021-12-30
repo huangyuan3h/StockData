@@ -46,12 +46,18 @@ def get_last_3_day_change_by_percent(df: DataFrame):
     return (last_close_price-last_4_close_price)*100.0/last_4_close_price
 
 
+def get_training_dataframe(df: DataFrame):
+    return df[3:]
+
+
 def kline_process():
     df = get_valid_data()
     df2 = get_63_records_data(df)
     percentage = get_last_3_day_change_by_percent(df2)
+    training_data = get_training_dataframe(df2)
     print(percentage)
-    print(df2.head())
+    print(training_data.head())
+    print(len(training_data.id))
 
 
 if __name__ == '__main__':
