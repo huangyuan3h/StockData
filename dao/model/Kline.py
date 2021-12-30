@@ -1,3 +1,4 @@
+import decimal
 from sqlalchemy import Column, String, Integer, DECIMAL, TIMESTAMP
 
 from dao import dao
@@ -27,4 +28,10 @@ class Kline(dao.db.Model):
         return "<kline(id='%d', code='%s', timestamp='%s')>" % (self.id, self.code, str(self.timestamp))
 
     def as_dict(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        def get_value(v: any):
+            if isinstance(v, decimal.Decimal):
+                return float(v)
+            else:
+                return v
+
+        return {c.name: get_value(getattr(self, c.name)) for c in self.__table__.columns}
