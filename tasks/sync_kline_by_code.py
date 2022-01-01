@@ -1,6 +1,7 @@
 from task_manager import task_manager
 from utils.dateUtils import to_db_timestamp, to_timestamp_millisecond, get_today_millisecond
 from xueqiu.kline import period_type, get_data
+from log import log
 
 DEFAULT_MODE = period_type['1day']
 
@@ -39,6 +40,7 @@ def sync_kline_by_code(code):
                           pb=i[13], ps=i[14], pcf=i[15], market_capital=i[16])
             session.add(stock)
         session.commit()
+        log.info("%s has been synchronized to latest", code)
     except:
         session.rollback()
         raise
