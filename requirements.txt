@@ -10,3 +10,4 @@ watchdog
 Celery
 redis
 pandas
+scikit-learn
