@@ -65,6 +65,13 @@ pip install -r requirements.txt
 conda install --file requirements.txt
 ```
 
+
+install pytorch:
+
+```
+conda install pytorch torchvision torchaudio -c pytorch
+```
+
 ## start project
 
 
