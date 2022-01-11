@@ -55,6 +55,14 @@ class StockListDataset(Dataset):
     def get_training_dataframe(self, df: DataFrame, offset = 0):
         return df[self.predict_after_size+offset:]
 
+    def __len__(self):
+        return len(self.labels)
+
+    def __getitem__(self, idx):
+        label = self.labels[idx]
+        data = self.data[idx]
+        return data, label
+
     def generate_training_data_and_labels(self):
 
         while len(self.labels) < self.total_size:
