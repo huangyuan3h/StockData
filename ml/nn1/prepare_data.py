@@ -4,9 +4,9 @@ from pandas import DataFrame
 
 """
 
-this ml is to find the next 3 day will get big interest
+this ml is to find the next 10 day will get big interest
 
-so we need 63 records
+so we need 70 records
 """
 import app
 from dao.kline_process import get_kline_by_code
@@ -45,21 +45,30 @@ class PrepareData(object):
 
     def get_last_n_day_change_by_percent(self, df: DataFrame):
         last_close_price = float(df["close"][0])
-        last_4_close_price = float(df["close"][self.predict_after_size])
-        return (last_close_price - last_4_close_price) * 100.0 / last_4_close_price
+        last_n_close_price = float(df["close"][self.predict_after_size])
+        return (last_close_price - last_n_close_price) * 100.0 / last_n_close_price
 
     def get_training_dataframe(self, df: DataFrame):
         return df[self.predict_after_size:]
 
+    def get_training_data_and_label(self):
+        df = self.get_valid_data()
+        df2 = self.get_n_records_data(df)
+        percentage = self.get_last_n_day_change_by_percent(df2)
+        training_data = self.get_training_dataframe(df2)
+        ## delete code id timestamp
+        del training_data['id']
+        del training_data['code']
+        del training_data['timestamp']
+
+        return training_data.to_numpy(), percentage
+
 
 def kline_process():
     prepareData = PrepareData()
-    df = prepareData.get_valid_data()
-    df2 = prepareData.get_n_records_data(df)
-    percentage = prepareData.get_last_n_day_change_by_percent(df2)
-    training_data = prepareData.get_training_dataframe(df2)
+    training_data, percentage = prepareData.get_training_data_and_label()
     print(percentage)
-    print(training_data.head())
+    print(training_data)
 
 
 if __name__ == '__main__':
