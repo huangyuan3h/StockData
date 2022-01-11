@@ -11,5 +11,6 @@ Celery
 redis
 pandas
 pytorch
+torch
 torchvision
 torchaudio
