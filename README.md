@@ -112,7 +112,7 @@ CELERY_RESULT_BACKEND=redis://localhost:6379
 ```
 ### 3. start celery:
 ```
-celery -A app.celery worker --loglevel=INFO
+celery -A app.celery worker --loglevel=INFO --concurrency=6
 ```
 
 ### 4. Start flask server
