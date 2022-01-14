@@ -2,8 +2,6 @@ import torch
 from torch import nn
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
-loss_fn = nn.CrossEntropyLoss()
-optimizer = torch.optim.SGD(model.parameters(), lr=1e-5)
 
 def train(dataloader, model, loss_fn, optimizer):
     size = len(dataloader.dataset)
