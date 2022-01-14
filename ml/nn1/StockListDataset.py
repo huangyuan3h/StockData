@@ -9,7 +9,6 @@ this ml is to find the next 10 day will get big interest
 
 so we need 70 records
 """
-import app
 from dao.kline_process import get_kline_by_code
 from dao.mapping.kline_mapping import kline_obj_2_dataframe
 from dao.stock_process import get_stock_code_list
@@ -85,12 +84,4 @@ class StockListDataset(Dataset):
                 self.labels.append(percentage)
 
 
-def kline_process():
-    stock_dataset = StockListDataset()
-    stock_dataset.generate_training_data_and_labels()
-    print(stock_dataset.data)
-    print(stock_dataset.labels)
 
-
-if __name__ == '__main__':
-    kline_process()
