@@ -1,5 +1,7 @@
 import random
 
+import torch
+import numpy as np
 from pandas import DataFrame
 from torch.utils.data import Dataset
 
@@ -27,8 +29,7 @@ class StockListDataset(Dataset):
     data = []  # training data
     labels = []  # labels
 
-    def __init__(self, chart_size=60, predict_after_size=10, total_size=10000):
-
+    def __init__(self, chart_size=60, predict_after_size=10, total_size=100):
         self.chart_size = chart_size
         self.predict_after_size = predict_after_size
         self.min_training_size = chart_size + predict_after_size
@@ -80,7 +81,10 @@ class StockListDataset(Dataset):
                 del training_data['code']
                 del training_data['timestamp']
 
-                self.data.append(training_data.to_numpy())
+                numpy_result = np.float32(training_data.to_numpy())
+
+                tensor_result = torch.from_numpy(numpy_result)
+                self.data.append(tensor_result)
                 self.labels.append(percentage)
 
 
