@@ -48,11 +48,11 @@ class StockListDataset(Dataset):
 
     def get_last_n_day_change_by_percent(self, df: DataFrame, offset=0):
         last_close_price = float(df["close"][offset])
-        last_n_close_price = float(df["close"][self.predict_after_size+offset])
+        last_n_close_price = float(df["close"][self.predict_after_size+offset+1])
         return (last_close_price - last_n_close_price) * 100.0 / last_n_close_price
 
-    def get_training_dataframe(self, df: DataFrame, offset = 0):
-        return df[self.predict_after_size+offset:]
+    def get_training_dataframe(self, df: DataFrame):
+        return df[self.predict_after_size:]
 
     def __len__(self):
         return len(self.labels)
@@ -74,7 +74,7 @@ class StockListDataset(Dataset):
                     break
                 df2 = self.get_n_records_data(df, offset)
                 percentage = self.get_last_n_day_change_by_percent(df2, offset)
-                training_data = self.get_training_dataframe(df2, offset)
+                training_data = self.get_training_dataframe(df2)
                 ## delete code id timestamp
                 del training_data['id']
                 del training_data['code']
