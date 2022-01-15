@@ -27,7 +27,7 @@ class StockListDataset(Dataset):
     data = []  # training data
     labels = []  # labels
 
-    def __init__(self, chart_size=60, predict_after_size=10, total_size=10000):
+    def __init__(self, chart_size=60, predict_after_size=10, total_size=100):
 
         self.chart_size = chart_size
         self.predict_after_size = predict_after_size
@@ -46,13 +46,13 @@ class StockListDataset(Dataset):
         else:
             return df[offset:offset + self.min_training_size]
 
-    def get_last_n_day_change_by_percent(self, df: DataFrame, offset=0):
-        last_close_price = float(df["close"][offset])
-        last_n_close_price = float(df["close"][self.predict_after_size+offset])
+    def get_last_n_day_change_by_percent(self, df: DataFrame):
+        last_close_price = float(df[0:1]["close"][0])
+        last_n_close_price = float(df[self.predict_after_size:self.predict_after_size+1]["close"][self.predict_after_size])
         return (last_close_price - last_n_close_price) * 100.0 / last_n_close_price
 
-    def get_training_dataframe(self, df: DataFrame, offset = 0):
-        return df[self.predict_after_size+offset:]
+    def get_training_dataframe(self, df: DataFrame):
+        return df[self.predict_after_size:]
 
     def __len__(self):
         return len(self.labels)
@@ -73,8 +73,8 @@ class StockListDataset(Dataset):
                 if len(self.labels) == self.total_size:
                     break
                 df2 = self.get_n_records_data(df, offset)
-                percentage = self.get_last_n_day_change_by_percent(df2, offset)
-                training_data = self.get_training_dataframe(df2, offset)
+                percentage = self.get_last_n_day_change_by_percent(df2)
+                training_data = self.get_training_dataframe(df2)
                 ## delete code id timestamp
                 del training_data['id']
                 del training_data['code']
