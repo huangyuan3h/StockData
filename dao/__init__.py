@@ -11,7 +11,7 @@ class DataAccess:
     def register(self, app: Flask):
         app.config['SQLALCHEMY_DATABASE_URI'] = get_connection_str()
         self.db = SQLAlchemy(app)
-        from dao import Stock, Kline
+        from dao.model import Stock
         self.db.create_all()
         self.session = self.db.session
 

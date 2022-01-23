@@ -1,11 +1,9 @@
-from log import log
+from dao.stock_process import get_stock_code_list
 from task_manager import task_manager
 
 
 def get_all_code_list():
-    from dao.Stock import Stock
-    stocks = Stock.query.all()
-    codes = list(map(lambda stock: stock.code, stocks))
+    codes = get_stock_code_list()
     return codes
 
 
@@ -18,4 +16,3 @@ def sync_kline_day_all():
     codes = get_all_code_list()
     for code in codes:
         run_by_code(code)
-        log.info("%s has been synchronized to latest", code)

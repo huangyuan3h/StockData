@@ -9,3 +9,9 @@ Flask-SQLAlchemy
 watchdog
 Celery
 redis
+pandas
+pytorch
+torch
+torchvision
+torchaudio
+numpy
