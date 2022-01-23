@@ -16,7 +16,7 @@ def run_training():
     model = CommonNeuralNetwork(input_shape=60*14, output_shape = 1).to(device)
     loss_fn = nn.MSELoss()
     optimizer = torch.optim.SGD(model.parameters(), lr=1e-5)
-    train_dataloader = DataLoader(stock_dataset, batch_size=30, shuffle=True)
+    train_dataloader = DataLoader(stock_dataset, shuffle=True)
     train(train_dataloader, model, loss_fn, optimizer)
 
 

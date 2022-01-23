@@ -61,7 +61,7 @@ class StockListDataset(Dataset):
     def __getitem__(self, idx):
         label = self.labels[idx]
         data = self.data[idx]
-        return data, label
+        return data.float(), label.float()
 
     def generate_training_data_and_labels(self):
 
@@ -76,16 +76,20 @@ class StockListDataset(Dataset):
                 df2 = self.get_n_records_data(df, offset)
                 percentage = self.get_last_n_day_change_by_percent(df2, offset)
                 training_data = self.get_training_dataframe(df2)
+
+                ## normalize
+
+                
                 ## delete code id timestamp
                 del training_data['id']
                 del training_data['code']
                 del training_data['timestamp']
 
-                numpy_result = np.float32(training_data.to_numpy())
+                numpy_result = training_data.to_numpy()
 
                 tensor_result = torch.from_numpy(numpy_result)
                 self.data.append(tensor_result)
-                self.labels.append(percentage)
+                self.labels.append(torch.tensor([percentage]))
 
 
 
