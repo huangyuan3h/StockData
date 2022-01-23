@@ -1,7 +1,6 @@
 import random
 
 import torch
-import numpy as np
 from pandas import DataFrame
 from torch.utils.data import Dataset
 
@@ -29,7 +28,7 @@ class StockListDataset(Dataset):
     data = []  # training data
     labels = []  # labels
 
-    def __init__(self, chart_size=60, predict_after_size=10, total_size=100):
+    def __init__(self, chart_size=60, predict_after_size=10, total_size=1000):
         self.chart_size = chart_size
         self.predict_after_size = predict_after_size
         self.min_training_size = chart_size + predict_after_size
@@ -49,7 +48,7 @@ class StockListDataset(Dataset):
 
     def get_last_n_day_change_by_percent(self, df: DataFrame, offset=0):
         last_close_price = float(df["close"][offset])
-        last_n_close_price = float(df["close"][self.predict_after_size+offset+1])
+        last_n_close_price = float(df["close"][self.predict_after_size + offset + 1])
         return (last_close_price - last_n_close_price) * 100.0 / last_n_close_price
 
     def get_training_dataframe(self, df: DataFrame):
@@ -62,6 +61,20 @@ class StockListDataset(Dataset):
         label = self.labels[idx]
         data = self.data[idx]
         return data.float(), label.float()
+
+    def normalize_data(self, data):
+
+        return_data = data.copy()
+        ## delete code id timestamp
+        del return_data['id']
+        del return_data['code']
+        del return_data['timestamp']
+
+        return_data['volume'] = data['volume'] / 10 ** 5
+        return_data['amount'] = data['amount'] / 10 ** 7
+        return_data['market_capital'] = data['market_capital'] / 10 ** 9
+
+        return return_data
 
     def generate_training_data_and_labels(self):
 
@@ -78,18 +91,10 @@ class StockListDataset(Dataset):
                 training_data = self.get_training_dataframe(df2)
 
                 ## normalize
-
-                
-                ## delete code id timestamp
-                del training_data['id']
-                del training_data['code']
-                del training_data['timestamp']
+                training_data = self.normalize_data(training_data)
 
                 numpy_result = training_data.to_numpy()
 
                 tensor_result = torch.from_numpy(numpy_result)
                 self.data.append(tensor_result)
                 self.labels.append(torch.tensor([percentage]))
-
-
-
