@@ -2,7 +2,8 @@ import torch
 from pandas import DataFrame
 from torch.utils.data import Dataset
 
-from ml.data.prepare import get_stock_data_by_size, get_stock_data_greater_then_min_size, get_change_by_mask_size
+from ml.data.prepare import get_stock_data_by_size, get_stock_data_greater_then_min_size, get_change_by_mask_size, \
+    normalize_stock_data
 
 """
 
@@ -10,21 +11,6 @@ this ml is to find the next 10 day will get big interest
 
 so we need 70 records
 """
-
-
-def normalize_data(data):
-
-    return_data = data.copy()
-    ## delete code id timestamp
-    del return_data['id']
-    del return_data['code']
-    del return_data['timestamp']
-
-    return_data['volume'] = data['volume'] / 10 ** 5
-    return_data['amount'] = data['amount'] / 10 ** 7
-    return_data['market_capital'] = data['market_capital'] / 10 ** 9
-
-    return return_data
 
 
 class StockListDataset(Dataset):
@@ -63,7 +49,7 @@ class StockListDataset(Dataset):
                 training_data = self.get_training_dataframe(df2)
 
                 ## normalize
-                training_data = normalize_data(training_data)
+                training_data = normalize_stock_data(training_data)
 
                 numpy_result = training_data.to_numpy()
 

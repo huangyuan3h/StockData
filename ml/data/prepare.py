@@ -35,3 +35,17 @@ def get_change_by_mask_size(df: DataFrame, mask_size=10, offset=0) -> float:
     last_close_price = float(df["close"][offset])
     last_n_close_price = float(df["close"][mask_size + offset + 1])
     return (last_close_price - last_n_close_price) * 100.0 / last_n_close_price
+
+
+def normalize_stock_data(data: DataFrame) -> DataFrame:
+    return_data = data.copy()
+    ## delete code id timestamp
+    del return_data['id']
+    del return_data['code']
+    del return_data['timestamp']
+
+    return_data['volume'] = data['volume'] / 10 ** 5
+    return_data['amount'] = data['amount'] / 10 ** 7
+    return_data['market_capital'] = data['market_capital'] / 10 ** 9
+
+    return return_data
