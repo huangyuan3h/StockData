@@ -33,7 +33,7 @@ def get_stock_data_by_size(df: DataFrame, size=70, offset=0) -> typing.Union[Non
 
 def get_change_by_mask_size(df: DataFrame, mask_size=10, offset=0) -> float:
     last_close_price = float(df["close"][offset])
-    last_n_close_price = float(df["close"][mask_size + offset + 1])
+    last_n_close_price = float(df["close"][mask_size + offset])
     return (last_close_price - last_n_close_price) * 100.0 / last_n_close_price
 
 
