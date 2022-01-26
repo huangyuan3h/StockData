@@ -9,13 +9,11 @@ Flask-SQLAlchemy
 watchdog
 Celery
 redis
-<<<<<<< HEAD
 scikit-learn
-=======
 pandas
 pytorch
 torch
 torchvision
 torchaudio
 numpy
->>>>>>> main
+joblib

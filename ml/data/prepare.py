@@ -3,17 +3,17 @@ import typing
 
 from pandas import DataFrame
 
-from dao.kline_process import get_kline_by_code
-from dao.mapping.kline_mapping import kline_obj_2_dataframe
-from dao.stock_process import get_stock_code_list
-
 
 def choose_a_random_stock_code() -> str:
+    from dao.stock_process import get_stock_code_list
     stock_list = get_stock_code_list()
     return random.choice(stock_list)
 
 
-def get_stock_data(code=choose_a_random_stock_code(), size=500) -> DataFrame:
+def get_stock_data(code=None, size=500) -> DataFrame:
+    from dao.kline_process import get_kline_by_code
+    from dao.mapping.kline_mapping import kline_obj_2_dataframe
+    code = code if code is not None else choose_a_random_stock_code()
     return kline_obj_2_dataframe(get_kline_by_code(code, size))
 
 
