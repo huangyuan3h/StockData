@@ -133,3 +133,5 @@ dmypy.json
 .idea/
 
 *.pkl
+
+.DS_Store

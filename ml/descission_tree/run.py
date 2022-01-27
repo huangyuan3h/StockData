@@ -6,14 +6,18 @@ from ml.descission_tree.DescissionDataset import DecisionTreeDataset
 from ml.descission_tree.model import decision_tree
 
 if __name__ == '__main__':
-    ds = DecisionTreeDataset(60, 10, 1000)
-    X,y = ds.get_data_set()
-    decision_tree.fit(X,y)
+    for i in range(10):
+        ds = DecisionTreeDataset(60, 10, 1000)
+        X, y = ds.get_data_set()
+        decision_tree.fit(X, y)
+
+
     df = get_stock_data_greater_then_min_size(70, 500)
     df2 = get_stock_data_by_size(df, 70, 0)
 
     train_df = df2[10:]
     nd_data = normalize_stock_data(train_df).to_numpy()
+
     nx, ny = nd_data.shape
     reshaped_data = nd_data.reshape(1, nx * ny)
 
@@ -22,3 +26,4 @@ if __name__ == '__main__':
     print(predicted_y)
     percentage = get_change_by_mask_size(df2, 10, 0)
     print(percentage)
+

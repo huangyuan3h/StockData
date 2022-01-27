@@ -24,7 +24,8 @@ class DecisionTreeDataset(object):
                 df2 = get_stock_data_by_size(df, self.min_training_size, offset)
                 percentage = get_change_by_mask_size(df2, self.mask_size, offset)
                 train_df = df2[self.mask_size:]
-                nd_data = normalize_stock_data(train_df).to_numpy()
+                normalized_data = normalize_stock_data(train_df)
+                nd_data = normalized_data.to_numpy()
                 self.train_data.append(nd_data)
                 self.percentage_labels.append(percentage)
 

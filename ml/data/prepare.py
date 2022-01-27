@@ -48,4 +48,7 @@ def normalize_stock_data(data: DataFrame) -> DataFrame:
     return_data['amount'] = data['amount'] / 10 ** 7
     return_data['market_capital'] = data['market_capital'] / 10 ** 9
 
+    if return_data.isnull().values.any():
+        for c in return_data.columns.values:
+            return_data[c].fillna(value=return_data[c].mean(), inplace=True)
     return return_data
