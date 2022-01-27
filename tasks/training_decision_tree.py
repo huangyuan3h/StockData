@@ -14,6 +14,7 @@ def training_decision_tree(batch_size=10):
         ds = DecisionTreeDataset(60, 10, 1000)
         X, y = ds.get_data_set()
         decision_tree.fit(X, y)
+        log.info("training decision tree: No. %s  finished", i)
 
     decision_tree.save_model()
     log.info("training decision tree %s times", batch_size)
