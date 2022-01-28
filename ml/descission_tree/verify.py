@@ -1,7 +1,11 @@
-from ml.data.prepare import get_stock_data_greater_then_min_size, normalize_stock_data, get_stock_data
+from sklearn.metrics import mean_absolute_error
+
+from ml.descission_tree.DescissionDataset import DecisionTreeDataset
 
 
-def get_last_N_stock_data(code:str, size = 60):
-    df = get_stock_data(code, size)
-    nd_data = normalize_stock_data(df).to_numpy()
-    return nd_data
+def verify_by_mean_absolute_error(model):
+    ds = DecisionTreeDataset(60, 10, 100)
+    X, y = ds.get_data_set()
+    predict = model.predict(X)
+    return mean_absolute_error(y, predict)
+

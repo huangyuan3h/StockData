@@ -1,6 +1,7 @@
 from log import log
 from ml.descission_tree.DescissionDataset import DecisionTreeDataset
 from ml.descission_tree.model import decision_tree
+from ml.descission_tree.verify import verify_by_mean_absolute_error
 from task_manager import task_manager
 
 
@@ -18,4 +19,7 @@ def training_decision_tree(batch_size=10):
 
     decision_tree.save_model()
     log.info("training decision tree %s times", batch_size)
+    result = verify_by_mean_absolute_error(decision_tree)
+    log.info("mean absolute error for current model is ", result)
+
 
