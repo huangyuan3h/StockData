@@ -1,8 +1,8 @@
 """
 training the model by number
 """
-from ml.data.prepare import get_stock_data, normalize_stock_data
-from ml.descission_tree.model import decision_tree
+from ml.descission_tree.verify import predict_result_by_code
+from tasks import generate_decision_tree_report as report
 from tasks import training_decision_tree as training
 
 
@@ -12,13 +12,13 @@ def training_decision_tree(num: int):
 
 
 def predict_by_stock_code(code: str):
-    df = get_stock_data(code, 60)
-    if len(df.index) < 60:
+    result = predict_result_by_code(code)
+    if result is None:
         return "not able to predict"
-    nd_data = normalize_stock_data(df).to_numpy()
-    nx, ny = nd_data.shape
-    reshaped_data = nd_data.reshape(1, nx * ny)
-    if not decision_tree.loaded:
-        decision_tree.load_model()
-    predicted_y = decision_tree.predict(reshaped_data)
-    return {"result": predicted_y[0]}
+    else:
+        return {"result": result}
+
+
+def generate_decision_tree_report():
+    report.delay()
+    return "ok"
