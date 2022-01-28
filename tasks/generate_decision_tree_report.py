@@ -11,10 +11,13 @@ def generate_decision_tree_report():
     code = []
     predict = []
     for c in stock_code_list:
-        p = predict_result_by_code(c)
-        if p is not None:
-            code.append(c)
-            predict.append(p)
+        try:
+            p = predict_result_by_code(c)
+            if p is not None:
+                code.append(c)
+                predict.append(p)
+        except:
+            print('data error for stock: %s', c)
     df = pd.DataFrame({"code": code, "predict": predict})
 
     df.sort_values(by='predict', ascending=False)
