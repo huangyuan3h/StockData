@@ -7,6 +7,9 @@ def register_router(app: Flask):
     from api.KlineAllStock import sync_all_stock
     from api.StockList import start_sync_stock_list
     from api.get_stock_data import get_stock_data
+    from api.decision_tree import training_decision_tree
+    from api.decision_tree import predict_by_stock_code
+    from api.decision_tree import generate_decision_tree_report
 
     app.add_url_rule('/tasks', 'tasks', methods=['get'], view_func=get_task)
     # functional endpoint
@@ -16,3 +19,12 @@ def register_router(app: Flask):
     app.add_url_rule('/sync/KLineAllDay', 'sync_all_stock', methods=['get'], view_func=sync_all_stock)
 
     app.add_url_rule('/stock/<string:code>', 'get_stock_data', methods=['get'], view_func=get_stock_data)
+
+    app.add_url_rule('/training/decision_tree/<int:num>', 'training_decision_tree', methods=['get'],
+                     view_func=training_decision_tree)
+
+    app.add_url_rule('/predict/decision_tree/<string:code>', 'predict_decision_tree', methods=['get'],
+                     view_func=predict_by_stock_code)
+
+    app.add_url_rule('/report/decision_tree', 'generate_decision_tree_report', methods=['get'],
+                     view_func=generate_decision_tree_report)

@@ -9,9 +9,11 @@ Flask-SQLAlchemy
 watchdog
 Celery
 redis
+scikit-learn
 pandas
 pytorch
 torch
 torchvision
 torchaudio
 numpy
+joblib

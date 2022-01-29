@@ -1,7 +1,7 @@
 from torch import nn
 
 
-# Define model
+# Define model_data
 class CommonNeuralNetwork(nn.Module):
     def __init__(self, input_shape = 28*28, middle_shape =512, output_shape= 10 ):
         super(CommonNeuralNetwork, self).__init__()
