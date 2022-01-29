@@ -1,5 +1,5 @@
 from log import log
-from ml.descission_tree.DescissionDataset import DecisionTreeDataset
+from ml.data.BaseDataset import BaseDataset
 from ml.descission_tree.model import decision_tree
 from ml.descission_tree.verify import verify_by_mean_absolute_error
 from task_manager import task_manager
@@ -12,7 +12,7 @@ def training_decision_tree(batch_size=10):
         decision_tree.load_model()
 
     for i in range(batch_size):
-        ds = DecisionTreeDataset(60, 10, 1000)
+        ds = BaseDataset(60, 10, 1000)
         X, y = ds.get_data_set()
         decision_tree.fit(X, y)
         log.info("training decision tree: No. %s  finished", i)

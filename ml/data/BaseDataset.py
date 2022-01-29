@@ -3,7 +3,7 @@ from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data
     normalize_stock_data
 
 
-class DecisionTreeDataset(object):
+class BaseDataset(object):
 
     def __init__(self, chart_size=60, mask_size=10, batch_size=1000):
         self.chart_size = chart_size
