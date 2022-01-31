@@ -1,4 +1,5 @@
-import requests
+import asyncio
+import aiohttp
 
 from utils.dateUtils import get_current_timestamp_millisecond
 from xueqiu.CookieManager import cookieManager
@@ -27,11 +28,18 @@ HEADERS = {
 }
 
 
+async def main(code='SH600519', begin=get_current_timestamp_millisecond(), search_type='before', period='day',
+               count='1'):
+    async with aiohttp.ClientSession(headers=HEADERS) as session:
+        PARAMS.update({'symbol': code, 'begin': begin, 'period': period, 'type': search_type,
+                       'count': count})
+        async with session.get(URL, params=PARAMS) as resp:
+            return await resp.json()
+
+
 def get_data(code='SH600519', begin=get_current_timestamp_millisecond(), search_type='before', period='day', count='1'):
-    PARAMS.update({'symbol': code, 'begin': begin, 'period': period, 'type': search_type,
-                   'count': count})
-    r = requests.get(url=URL, params=PARAMS, headers=HEADERS)
-    return r.json()
+    loop = asyncio.get_event_loop()
+    return loop.run_until_complete(main(code, begin, search_type, period, count))
 
 
 if __name__ == '__main__':
