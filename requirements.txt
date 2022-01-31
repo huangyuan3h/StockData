@@ -17,4 +17,3 @@ torchvision
 torchaudio
 numpy
 joblib
-aiohttp
