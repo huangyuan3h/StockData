@@ -9,9 +9,6 @@ def get_all_code_list():
 
 @task_manager.celery.task()
 def sync_kline_day_all():
-    """
-    this function would no longer used
-    """
     from tasks import run_by_code
     codes = get_all_code_list()
     for code in codes:
