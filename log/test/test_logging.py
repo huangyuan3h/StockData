@@ -1,6 +1,6 @@
-import unittest
-import os
 import logging
+import os
+import unittest
 
 from log import log
 
@@ -29,5 +29,3 @@ class TestLogging(unittest.TestCase):
         self.assertTrue(f.readline().rindex('error') > 0)
 
         os.remove("log.log")
-
-
