@@ -18,8 +18,7 @@ def training_random_forest(predict_day=3, batch_size=10):
         predict_y = model.predict(testing_X)
         score = mean_absolute_error(testing_y, predict_y)
         log.info(f'training random forest 3: No. {i} with score: {score}')
-        # save to file
-        result = factory.save(score)
-        if not result:
-            log.info(f'training save failed, current score: {model.score}, training_score:{score}')
-            break
+    # save to file
+    result = factory.save(score)
+    if not result:
+        log.info(f'training save failed, current score: {model.score}, training_score:{score}')

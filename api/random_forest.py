@@ -18,7 +18,7 @@ def predict_n_day_by_stock_code(code: str, predict_day=3):
     if result is None:
         return "not able to predict"
     else:
-        return result
+        return {"result": result}
 
 
 def generate_decision_tree_report():
