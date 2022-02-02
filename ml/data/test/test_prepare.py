@@ -1,4 +1,4 @@
-from ml.data.prepare import choose_a_random_stock_code
+from ml.data.prepare import choose_a_random_stock_code, get_stock_data
 
 
 def test_choose_a_random_stock_code(mocker):
@@ -8,3 +8,13 @@ def test_choose_a_random_stock_code(mocker):
     fn.assert_called_once_with()
     assert result is 'mock'
 
+
+def test_get_stock_data(mocker):
+    mock_get_kline_by_code = mocker.patch('dao.kline_process.get_kline_by_code')
+    mock_choose_code = mocker.patch('ml.data.prepare.choose_a_random_stock_code')
+    mock_kline_2_dataframe = mocker.patch('dao.mapping.kline_mapping.kline_obj_2_dataframe')
+    mock_choose_code.return_value = 'mock_code'
+    get_stock_data()
+
+    mock_get_kline_by_code.assert_called_with('mock_code', 500)
+    mock_kline_2_dataframe.assert_called()

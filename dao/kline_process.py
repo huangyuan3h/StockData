@@ -1,7 +1,5 @@
-from dao.model.Kline import Kline
-
-
 def get_kline_by_code(code: str, limit=500):
+    from dao.model.Kline import Kline
     """
     get stock data by code order by date aec
     current limit 500
