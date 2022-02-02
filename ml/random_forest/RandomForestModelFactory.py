@@ -27,4 +27,6 @@ class RandomForestModelFactory(object):
         self.model = RandomForestModel(name=name, predict_day=predict_day) if new_model or not os.path.isfile(
             self.path) else joblib.load(self.path)
 
-
+        """
+        get testing data
+        """
