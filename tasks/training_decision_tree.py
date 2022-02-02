@@ -1,7 +1,7 @@
 from log import log
 from ml.data.BaseDataset import BaseDataset
+from ml.data.verify import verify_by_mean_absolute_error
 from ml.descission_tree.model import decision_tree
-from ml.descission_tree.verify import verify_by_mean_absolute_error
 from task_manager import task_manager
 
 

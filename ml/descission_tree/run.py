@@ -2,7 +2,6 @@ import app
 import pandas as pd
 
 from ml.data.BaseDataset import BaseDataset
-from ml.descission_tree.verify import predict_result_by_code
 from tasks.sync_kline_day_all import get_all_code_list
 
 if __name__ == '__main__':

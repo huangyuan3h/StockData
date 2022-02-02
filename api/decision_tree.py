@@ -1,7 +1,7 @@
 """
 training the model by number
 """
-from ml.descission_tree.verify import predict_result_by_code
+from ml.data.verify import predict_result_by_code
 from tasks import generate_decision_tree_report as report
 from tasks import training_decision_tree as training
 

@@ -1,6 +1,6 @@
 import pandas as pd
 
-from ml.descission_tree.verify import predict_result_by_code
+from ml.data.verify import predict_result_by_code
 from task_manager import task_manager
 from tasks.sync_kline_day_all import get_all_code_list
 
