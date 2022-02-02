@@ -6,8 +6,8 @@ from task_manager import task_manager
 
 
 @task_manager.celery.task()
-def training_random_forest_3(batch_size=10):
-    factory = RandomForestModelFactory(predict_day=3)
+def training_random_forest(predict_day=3, batch_size=10):
+    factory = RandomForestModelFactory(predict_day=predict_day)
     ds = factory.data_set
     model = factory.model
     testing_X, testing_y = ds.get_test_data_set()

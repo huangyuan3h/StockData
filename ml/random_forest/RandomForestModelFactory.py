@@ -20,7 +20,7 @@ class RandomForestModelFactory(object):
         """
         model:
         """
-        self.path = path if path is not None else f'model_data/{name}_{predict_day}'
+        self.path = path if path is not None else f'model_data/{name}_{predict_day}.pkl'
 
         self.model = RandomForestModel(name=name, predict_day=predict_day) if new_model or not os.path.isfile(
             self.path) else joblib.load(self.path)
