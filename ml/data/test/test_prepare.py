@@ -1,4 +1,6 @@
-from ml.data.prepare import choose_a_random_stock_code, get_stock_data
+from pandas import DataFrame
+
+from ml.data.prepare import choose_a_random_stock_code, get_stock_data, get_stock_data_greater_then_min_size
 
 
 def test_choose_a_random_stock_code(mocker):
@@ -18,3 +20,10 @@ def test_get_stock_data(mocker):
 
     mock_get_kline_by_code.assert_called_with('mock_code', 500)
     mock_kline_2_dataframe.assert_called()
+
+
+def test_get_stock_data_greater_then_min_size(mocker):
+    mock_get_stock_data = mocker.patch('ml.data.prepare.get_stock_data')
+    mock_get_stock_data.return_value = DataFrame([{1, 2, }, {2, 3}])
+    result = get_stock_data_greater_then_min_size(1)
+    assert result is mock_get_stock_data.return_value
