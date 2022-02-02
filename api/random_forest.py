@@ -3,10 +3,10 @@ training the model by number
 """
 from ml.data.verify import predict_result_by_code
 from tasks import generate_decision_tree_report as report
-from tasks import training_decision_tree as training
+from tasks import training_random_forest as training
 
 
-def training_decision_tree(num: int):
+def training_random_forest_3(num: int):
     training.delay(batch_size=num)
     return "ok"
 
