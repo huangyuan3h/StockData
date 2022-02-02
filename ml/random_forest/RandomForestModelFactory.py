@@ -27,6 +27,10 @@ class RandomForestModelFactory(object):
         self.model = RandomForestModel(name=name, predict_day=predict_day) if new_model or not os.path.isfile(
             self.path) else joblib.load(self.path)
 
-        """
-        get testing data
-        """
+    def save(self, score: float) -> bool:
+        current_score = self.model.score
+        if current_score is not None and current_score < score:
+            return False
+        self.model.score = score
+        joblib.dump(self.model, self.path)
+        return True
