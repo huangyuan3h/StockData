@@ -1,7 +1,7 @@
 from pandas import DataFrame
 
 from ml.data.prepare import choose_a_random_stock_code, get_stock_data, get_stock_data_greater_then_min_size, \
-    get_stock_data_by_size, get_change_by_mask_size, normalize_stock_data
+    get_stock_data_by_size, get_change_by_mask_size, normalize_stock_data, impute_data
 
 
 def test_choose_a_random_stock_code(mocker):
@@ -50,6 +50,12 @@ def test_normalize_stock_data():
                    columns=["close", "open", "id", "code", "timestamp", "volume", "amount", "market_capital"])
 
     result = normalize_stock_data(df)
-    assert result.equals(DataFrame([[1.0, 2, 1.0, 1.0, 1.0], [2.0, 3.5, 1.0, 1.0, 1.0], [4.0, 5, 1.0, 1.0, 1.0]],
+    assert result.equals(DataFrame([[1.0, 2, 1.0, 1.0, 1.0], [2.0, None, 1.0, 1.0, 1.0], [4.0, 5, 1.0, 1.0, 1.0]],
                                    columns=["close", "open", "volume", "amount", "market_capital"])
                          )
+
+
+def test_impute_data():
+    df = DataFrame([[1.0, None], [None, 2], [3.0, 3.0]], columns=["close", "open"])
+    result = impute_data(df)
+    assert result.equals(DataFrame([[1.0, 2.5], [2.0, 2.0], [3.0, 3.0]], columns=["close", "open"]))
