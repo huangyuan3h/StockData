@@ -21,5 +21,5 @@ def training_random_forest_3(batch_size=10):
         # save to file
         result = factory.save(score)
         if not result:
-            log.info(f'training save failed, current score: {model.score}, training_score:${score}')
+            log.info(f'training save failed, current score: {model.score}, training_score:{score}')
             break
