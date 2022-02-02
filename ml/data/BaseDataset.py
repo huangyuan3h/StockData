@@ -1,7 +1,7 @@
 import numpy
 
 from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data_by_size, get_change_by_mask_size, \
-    normalize_stock_data, impute_data
+    normalize_stock_data
 
 
 class BaseDataset(object):
@@ -17,8 +17,7 @@ class BaseDataset(object):
 
     def get_data_set(self):
         while len(self.percentage_labels) < self.batch_size:
-            stock_data = get_stock_data_greater_then_min_size(self.min_training_size, 500)
-            df = impute_data(stock_data)
+            df = get_stock_data_greater_then_min_size(self.min_training_size, 500)
             loop_count = len(df.id) - self.min_training_size
             for offset in range(loop_count):
                 if len(self.percentage_labels) == self.batch_size:

@@ -49,7 +49,7 @@ def normalize_stock_data(data: DataFrame) -> DataFrame:
     return_data['amount'] = data['amount'] / 10 ** 7
     return_data['market_capital'] = data['market_capital'] / 10 ** 9
 
-    return return_data
+    return impute_data(return_data)
 
 
 def impute_data(df: DataFrame) -> DataFrame:
