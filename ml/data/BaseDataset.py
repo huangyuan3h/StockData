@@ -22,7 +22,7 @@ class BaseDataset(object):
                 if len(self.percentage_labels) == self.batch_size:
                     break
                 df2 = get_stock_data_by_size(df, self.min_training_size, offset)
-                percentage = get_change_by_mask_size(df2, self.mask_size, offset)
+                percentage = get_change_by_mask_size(df2, self.mask_size)
                 train_df = df2[self.mask_size:]
                 normalized_data = normalize_stock_data(train_df)
                 nd_data = normalized_data.to_numpy()

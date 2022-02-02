@@ -1,6 +1,7 @@
 from pandas import DataFrame
 
-from ml.data.prepare import choose_a_random_stock_code, get_stock_data, get_stock_data_greater_then_min_size
+from ml.data.prepare import choose_a_random_stock_code, get_stock_data, get_stock_data_greater_then_min_size, \
+    get_stock_data_by_size, get_change_by_mask_size
 
 
 def test_choose_a_random_stock_code(mocker):
@@ -27,3 +28,16 @@ def test_get_stock_data_greater_then_min_size(mocker):
     mock_get_stock_data.return_value = DataFrame([{1, 2, }, {2, 3}])
     result = get_stock_data_greater_then_min_size(1)
     assert result is mock_get_stock_data.return_value
+
+
+def test_get_stock_data_by_size():
+    mock_df = DataFrame([{1, 2, }, {2, 3}])
+    result = get_stock_data_by_size(mock_df, 1, 1)
+    assert len(result.compare(DataFrame([{2, 3}]))) == 0
+
+
+def test_get_change_by_mask_size():
+    mock_df = DataFrame([{1, 2}, {2, 3}], columns=["close", "open"])
+    result = get_change_by_mask_size(mock_df, 1)
+
+    assert result == -50.0
