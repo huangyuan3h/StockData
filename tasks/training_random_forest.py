@@ -13,7 +13,7 @@ def training_random_forest(predict_day=3, batch_size=10):
     testing_X, testing_y = ds.get_test_data_set()
     for i in range(batch_size):
         X, y = ds.get_data_set()
-        model.fit(X, y)
+        model.partial_fit(X, y)
         # verify
         predict_y = model.predict(testing_X)
         score = mean_absolute_error(testing_y, predict_y)

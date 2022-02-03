@@ -21,7 +21,8 @@ def get_stock_data(code=None, size=500) -> DataFrame:
 def get_stock_data_greater_then_min_size(min_size=70, total_size=500) -> DataFrame:
     while True:
         df = get_stock_data(size=total_size)
-        if len(df.index) >= min_size:
+        w, h = df.shape # check shape
+        if len(df.index) >= min_size and h == 17:
             return df
 
 
