@@ -44,6 +44,9 @@ class BaseDataset(object):
                 if len(self.percentage_labels) == self.batch_size:
                     break
                 df2 = get_stock_data_by_size(df, self.min_training_size, offset)
+                w, h = df2.shape
+                if h != 17:
+                    break
                 nd_data, percentage = get_data_label_by_dataframe(df2, self.mask_size)
                 self.train_data.append(nd_data)
                 self.percentage_labels.append(percentage)
@@ -56,6 +59,9 @@ class BaseDataset(object):
         self.testing_data = []
         while len(self.test_labels) < self.testing_batch_size:
             df = get_stock_data_greater_then_min_size(self.min_training_size, self.min_training_size)
+            w, h = df.shape
+            if h != 17:
+                break
             nd_data, percentage = get_data_label_by_dataframe(df, self.mask_size)
             self.test_labels.append(percentage)
             self.testing_data.append(nd_data)
