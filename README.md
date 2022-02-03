@@ -76,6 +76,7 @@ install tensorflow:
 
 ```bash
 conda install -c conda-forge tensorflow
+pip install tensorflow
 ```
 
 ## start project
