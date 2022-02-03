@@ -42,25 +42,25 @@ deactivate
 ## pip requirements
 
 install single package example:
-```
+```bash
 pip install requests==version
 ```
 
 ## pip remove the requirement
 
-```ssh
+```bash
 conda remove packagename
 ```
 
 ## save to requirement
-```
+```bash
 pip freeze > requirements.txt
 conda list -e > requirements.txt
 ```
 
 ## install the requirement.txt
 
-```
+```bash
 pip install -r requirements.txt
 conda install --file requirements.txt
 ```
@@ -68,8 +68,14 @@ conda install --file requirements.txt
 
 install pytorch:
 
-```
+```bash
 conda install pytorch torchvision torchaudio -c pytorch
+```
+
+install tensorflow:
+
+```bash
+conda install -c conda-forge tensorflow
 ```
 
 ## start project
