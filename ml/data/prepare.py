@@ -2,6 +2,7 @@ import random
 import typing
 
 from pandas import DataFrame
+from sklearn.impute import SimpleImputer
 
 
 def choose_a_random_stock_code() -> str:
@@ -20,20 +21,21 @@ def get_stock_data(code=None, size=500) -> DataFrame:
 def get_stock_data_greater_then_min_size(min_size=70, total_size=500) -> DataFrame:
     while True:
         df = get_stock_data(size=total_size)
-        if len(df.index) > min_size:
+        w, h = df.shape # check shape
+        if len(df.index) >= min_size and h == 17:
             return df
 
 
 def get_stock_data_by_size(df: DataFrame, size=70, offset=0) -> typing.Union[None, DataFrame]:
-    if (offset + size) > len(df.index):
-        return None
+    if (offset + size) <= len(df.index):
+        return df.iloc[offset:offset + size].reset_index(drop=True)
     else:
-        return df[offset:offset + size]
+        return None
 
 
-def get_change_by_mask_size(df: DataFrame, mask_size=10, offset=0) -> float:
-    last_close_price = float(df["close"][offset])
-    last_n_close_price = float(df["close"][mask_size + offset])
+def get_change_by_mask_size(df: DataFrame, mask_size=10) -> float:
+    last_close_price = float(df["close"][0])
+    last_n_close_price = float(df["close"][mask_size])
     return (last_close_price - last_n_close_price) * 100.0 / last_n_close_price
 
 
@@ -52,3 +54,8 @@ def normalize_stock_data(data: DataFrame) -> DataFrame:
         for c in return_data.columns.values:
             return_data[c].fillna(value=return_data[c].mean(), inplace=True)
     return return_data
+
+
+def impute_data(df: DataFrame) -> DataFrame:
+    imp = SimpleImputer()
+    return DataFrame(imp.fit_transform(df), columns=df.columns, index=df.index)

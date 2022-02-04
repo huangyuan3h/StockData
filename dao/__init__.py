@@ -2,6 +2,7 @@ from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 
 from dao.connection import get_connection_str
+from dao.kline_process import get_kline_by_code
 
 
 class DataAccess:

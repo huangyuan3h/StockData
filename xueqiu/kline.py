@@ -37,3 +37,4 @@ def get_data(code='SH600519', begin=get_current_timestamp_millisecond(), search_
 if __name__ == '__main__':
     data = get_data()
     print(data)
+
