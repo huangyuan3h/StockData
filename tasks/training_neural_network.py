@@ -20,13 +20,13 @@ def training_neural_network(predict_day=3, batch_size=10):
                 X.tolist(), y,
                 validation_data=(testing_X.tolist(), testing_y),
                 batch_size=100,
-                epochs=10,
+                epochs=100,
                 callbacks=[early_stopping],
                 verbose=0,
             )
             # verify
             history_df = DataFrame(history.history)
-            log.info("Minimum validation loss: {}".format(history_df['val_loss'].min()))
+            log.info(f"training No {i}, Minimum validation loss: {history_df['val_loss'].min()}")
             # save to file
             factory.save()
         except BaseException as err:
