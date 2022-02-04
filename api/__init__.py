@@ -23,7 +23,7 @@ def register_router(app: Flask):
     app.add_url_rule('/training/nn/<int:predict_day>/<int:num>', 'training_nn', methods=['get'],
                      view_func=training_neural_network)
 
-    app.add_url_rule('/predict/random_forest/<int:predict_day>/<string:code>', 'predict_decision_tree', methods=['get'],
+    app.add_url_rule('/predict/nn/<int:predict_day>/<string:code>', 'predict_nn_by_code', methods=['get'],
                      view_func=predict_n_day_by_stock_code)
 
     app.add_url_rule('/report/random_forest_3', 'generate_decision_tree_report', methods=['get'],
