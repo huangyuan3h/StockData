@@ -1,9 +1,8 @@
-from keras import layers, callbacks
-from tensorflow import keras
+from tensorflow.keras import layers, callbacks, Sequential
 
 
 def get_nn_model(shape_size=840, hidden_layer_size=512):
-    model = keras.Sequential([
+    model = Sequential([
         layers.Dense(hidden_layer_size, activation='relu', input_shape=[shape_size]),
         layers.Dense(hidden_layer_size, activation='relu'),
         layers.Dense(hidden_layer_size, activation='relu'),

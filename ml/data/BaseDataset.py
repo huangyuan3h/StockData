@@ -21,7 +21,7 @@ def reshape_data(train_data):
 
 class BaseDataset(object):
 
-    def __init__(self, chart_size=60, mask_size=10, batch_size=1000, testing_batch_size=500):
+    def __init__(self, chart_size=60, mask_size=10, batch_size=1000, testing_batch_size=100):
         self.chart_size = chart_size
         self.mask_size = mask_size
         self.batch_size = batch_size
