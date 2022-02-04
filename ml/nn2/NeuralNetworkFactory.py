@@ -23,3 +23,6 @@ class NeuralNetworkFactory(object):
         self.path = path if path is not None else f'model_data/{name}_{predict_day}.tf'
         self.model = get_nn_model(shape_size=840, hidden_layer_size=512) if new_model or not os.path.isfile(
             self.path) else keras.models.load_model(path)
+
+    def save(self):
+        keras.models.save_model(self.model, self.path, overwrite=True, include_optimizer=True, save_format='tf')

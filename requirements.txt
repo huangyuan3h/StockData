@@ -16,3 +16,4 @@ pytorch
 numpy
 joblib
 matplotlib
+redis
