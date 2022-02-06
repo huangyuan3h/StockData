@@ -1,15 +1,14 @@
 from pandas import DataFrame
 
 from log import log
-from ml.data.prepare import reshape_data_to_1_d
-from ml.nn2.NeuralNetworkFactory import NeuralNetworkFactory
+from ml.lstm.LSTMFactory import LSTMFactory
 from ml.nn2.model import get_early_stop_callback
 from task_manager import task_manager
 
 
 @task_manager.celery.task()
-def training_neural_network(predict_day=3, batch_size=10):
-    factory = NeuralNetworkFactory(predict_day=predict_day)
+def training_lstm(predict_day=3, batch_size=10):
+    factory = LSTMFactory(predict_day=predict_day)
     ds = factory.data_set
     model = factory.model
     testing_X, testing_y = ds.get_test_data_set()
@@ -18,8 +17,8 @@ def training_neural_network(predict_day=3, batch_size=10):
         try:
             X, y = ds.get_data_set()
             history = model.fit(
-                reshape_data_to_1_d(X), y,
-                validation_data=(reshape_data_to_1_d(testing_X), testing_y),
+                X, y,
+                validation_data=(testing_X, testing_y),
                 batch_size=100,
                 epochs=100,
                 callbacks=[early_stopping],

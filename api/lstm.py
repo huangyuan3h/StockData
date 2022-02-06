@@ -4,10 +4,10 @@ training the model by number
 from ml.data.verify import predict_result_by_code
 from ml.nn2.NeuralNetworkFactory import NeuralNetworkFactory
 from tasks import generate_decision_tree_report as report
-from tasks import training_neural_network as training
+from tasks import training_lstm as training
 
 
-def training_neural_network(predict_day=3, num=10):
+def training_lstm(predict_day=3, num=10):
     training.delay(predict_day=predict_day, batch_size=num)
     return "ok"
 
