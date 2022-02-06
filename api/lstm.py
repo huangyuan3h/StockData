@@ -2,7 +2,7 @@
 training the model by number
 """
 from ml.data.verify import predict_result_by_code
-from ml.nn2.NeuralNetworkFactory import NeuralNetworkFactory
+from ml.lstm.LSTMFactory import LSTMFactory
 from tasks import generate_decision_tree_report as report
 from tasks import training_lstm as training
 
@@ -13,7 +13,7 @@ def training_lstm(predict_day=3, num=10):
 
 
 def predict_n_day_by_stock_code(code: str, predict_day=3):
-    factory = NeuralNetworkFactory(predict_day=predict_day)
+    factory = LSTMFactory(predict_day=predict_day)
     result = predict_result_by_code(code, factory.model)
     if result is None:
         return "not able to predict"
