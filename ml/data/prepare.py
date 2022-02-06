@@ -1,5 +1,6 @@
 import random
 import typing
+import numpy
 
 from pandas import DataFrame
 from sklearn.impute import SimpleImputer
@@ -58,3 +59,9 @@ def normalize_stock_data(data: DataFrame) -> DataFrame:
 def impute_data(df: DataFrame) -> DataFrame:
     imp = SimpleImputer()
     return DataFrame(imp.fit_transform(df), columns=df.columns, index=df.index)
+
+
+def reshape_data_to_1_d(train_data):
+    dataset = numpy.array(train_data)
+    column, nx, ny = dataset.shape
+    return dataset.reshape(column, nx * ny).tolist()

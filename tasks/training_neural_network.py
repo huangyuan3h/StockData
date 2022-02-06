@@ -1,6 +1,7 @@
 from pandas import DataFrame
 
 from log import log
+from ml.data.prepare import reshape_data_to_1_d
 from ml.nn2.NeuralNetworkFactory import NeuralNetworkFactory
 from ml.nn2.model import get_early_stop_callback
 from task_manager import task_manager
@@ -17,8 +18,8 @@ def training_neural_network(predict_day=3, batch_size=10):
         try:
             X, y = ds.get_data_set()
             history = model.fit(
-                X.tolist(), y,
-                validation_data=(testing_X.tolist(), testing_y),
+                reshape_data_to_1_d(X), y,
+                validation_data=(reshape_data_to_1_d(testing_X), testing_y),
                 batch_size=100,
                 epochs=100,
                 callbacks=[early_stopping],
