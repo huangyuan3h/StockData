@@ -20,7 +20,7 @@ def register_router(app: Flask):
 
     app.add_url_rule('/stock/<string:code>', 'get_stock_data', methods=['get'], view_func=get_stock_data)
 
-    app.add_url_rule('/training/nn/<int:predict_day>/<int:num>', 'training_nn', methods=['get'],
+    app.add_url_rule('/training/lstm/<int:predict_day>/<int:num>', 'training_lstm', methods=['get'],
                      view_func=training_lstm)
 
     app.add_url_rule('/predict/nn/<int:predict_day>/<string:code>', 'predict_nn_by_code', methods=['get'],
