@@ -13,9 +13,7 @@ redis
 scikit-learn
 pandas
 pytorch
-torch
-torchvision
-torchaudio
 numpy
 joblib
-tensorflow
+matplotlib
+redis
