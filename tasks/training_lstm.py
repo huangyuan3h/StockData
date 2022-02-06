@@ -19,7 +19,7 @@ def training_lstm(predict_day=3, batch_size=10):
             history = model.fit(
                 X, y,
                 validation_data=(testing_X, testing_y),
-                batch_size=100,
+                batch_size=1000,
                 epochs=100,
                 callbacks=[early_stopping],
                 verbose=0,
