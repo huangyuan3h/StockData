@@ -21,6 +21,6 @@ def predict_n_day_by_stock_code(code: str, predict_day=3):
         return {"result": result}
 
 
-def generate_decision_tree_report():
-    report.delay()
+def generate_n_day_report(predict_day=3):
+    report.delay(predict_day=predict_day)
     return "ok"

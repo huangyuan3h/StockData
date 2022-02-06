@@ -1,18 +1,20 @@
 import pandas as pd
 
 from ml.data.verify import predict_result_by_code
+from ml.lstm.LSTMFactory import LSTMFactory
 from task_manager import task_manager
 from tasks.sync_kline_day_all import get_all_code_list
 
 
 @task_manager.celery.task()
-def generate_decision_tree_report():
+def generate_lstm_report(predict_day=3):
     stock_code_list = get_all_code_list()
     code = []
     predict = []
+    factory = LSTMFactory(predict_day=predict_day)
     for c in stock_code_list:
         try:
-            p = predict_result_by_code(c)
+            p = predict_result_by_code(c, factory.model)
             if p is not None:
                 code.append(c)
                 predict.append(p)

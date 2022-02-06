@@ -2,5 +2,5 @@ from tasks.sync_stock_list import sync_stock_list
 from tasks.sync_kline_by_code import sync_kline_by_code as run_by_code
 from tasks.sync_kline_day_all import sync_kline_day_all
 from tasks.training_lstm import training_lstm
-from tasks.generate_decision_tree_report import generate_decision_tree_report
+from tasks.generate_lstm_report import generate_lstm_report
 

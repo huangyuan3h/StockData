@@ -9,7 +9,7 @@ def register_router(app: Flask):
     from api.get_stock_data import get_stock_data
     from api.lstm import training_lstm
     from api.lstm import predict_n_day_by_stock_code
-    from api.lstm import generate_decision_tree_report
+    from api.lstm import generate_n_day_report
 
     app.add_url_rule('/tasks', 'tasks', methods=['get'], view_func=get_task)
     # functional endpoint
@@ -26,5 +26,5 @@ def register_router(app: Flask):
     app.add_url_rule('/predict/lstm/<int:predict_day>/<string:code>', 'predict_lstm_by_code', methods=['get'],
                      view_func=predict_n_day_by_stock_code)
 
-    app.add_url_rule('/report/random_forest_3', 'generate_decision_tree_report', methods=['get'],
-                     view_func=generate_decision_tree_report)
+    app.add_url_rule('/report/lstm/<int:predict_day>', 'generate_decision_tree_report', methods=['get'],
+                     view_func=generate_n_day_report)
