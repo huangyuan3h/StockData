@@ -41,6 +41,7 @@ def get_change_by_mask_size(df: DataFrame, mask_size=10) -> float:
 
 def normalize_stock_data(data: DataFrame) -> DataFrame:
     return_data = data.copy()
+    return_data.sort_values(by="timestamp",  inplace=True)  # reverse order for lstm
     ## delete code id timestamp
     del return_data['id']
     del return_data['code']
