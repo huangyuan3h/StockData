@@ -21,7 +21,7 @@ class LSTMFactory(object):
         model:
         """
         self.path = path if path is not None else f'model_data/{name}_{predict_day}.tf'
-        self.model = get_lstm_model(n_steps=60, n_features=13, lstm_layer_size=512) if new_model or not os.path.isfile(
+        self.model = get_lstm_model(n_steps=60, n_features=14, lstm_layer_size=512) if new_model or not os.path.isfile(
             self.path) else keras.models.load_model(path)
 
     def save(self):
