@@ -43,9 +43,6 @@ class CookieManager(object):
         self.cookies = get_cookie_str()
         self.updated_time = get_current_timestamp_millisecond()
 
-    def __init__(self):
-        self.update()
-
     def get_cookies(self):
         if self.cookies == '' or self.updated_time is None or (
             self.updated_time + update_gap) < get_current_timestamp_millisecond():
