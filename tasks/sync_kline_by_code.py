@@ -1,7 +1,8 @@
+from dao.kline_process import get_last
+from log import log
 from task_manager import task_manager
 from utils.dateUtils import to_db_timestamp, to_timestamp_millisecond, get_today_millisecond
 from xueqiu.kline import period_type, get_data
-from log import log
 
 DEFAULT_MODE = period_type['1day']
 
@@ -10,12 +11,6 @@ start_date = 1514736000000  # 2018-01-01
 one_day = 86400000  # 1 day millisecond
 
 count = 244 * 5  # 244 trade days *5 years
-
-
-def get_last(code):
-    from dao.model.Kline import Kline
-    result = Kline.query.filter_by(code=code).order_by(Kline.timestamp.desc()).first()
-    return result
 
 
 @task_manager.celery.task()

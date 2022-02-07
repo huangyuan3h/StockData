@@ -14,7 +14,7 @@ def training_lstm(predict_day=3, num=10):
 
 def predict_n_day_by_stock_code(code: str, predict_day=3):
     factory = LSTMFactory(predict_day=predict_day)
-    result, df = predict_result_by_code(code, factory.model)
+    result = predict_result_by_code(code, factory.model)
     if result is None:
         return "not able to predict"
     else:

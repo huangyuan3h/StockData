@@ -5,3 +5,9 @@ def get_kline_by_code(code: str, limit=500):
     current limit 500
     """
     return Kline.query.filter_by(code=code).order_by(Kline.timestamp.desc()).limit(limit).all()
+
+
+def get_last(code):
+    from dao.model.Kline import Kline
+    result = Kline.query.filter_by(code=code).order_by(Kline.timestamp.desc()).first()
+    return result

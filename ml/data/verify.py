@@ -20,4 +20,4 @@ def predict_result_by_code(code: str, model, chart_size=60) -> Optional[float]:
     nd_data = normalize_stock_data(df).to_numpy().tolist()
     reshaped_data = nd_data
     predicted_y = model.predict([reshaped_data])
-    return float(predicted_y[0]), df
+    return float(predicted_y[0])

@@ -25,7 +25,7 @@ if __name__ == '__main__':
     # print("Minimum validation loss: {}".format(history_df['val_loss'].min()))
 
     factory = LSTMFactory(predict_day=3, path='../../model_data/lstm_3.tf')
-    p, df = predict_result_by_code("SZ002594", factory.model)
+    p = predict_result_by_code("SZ002594", factory.model)
     print(p)
 
 
