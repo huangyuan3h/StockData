@@ -11,4 +11,4 @@ class Report(dao.db.Model):
     timestamp = Column(TIMESTAMP)
 
     def __repr__(self):
-        return "<report(id='%d', code='%s', predict='%s')>" % (self.id, self.code, str(self.predict))
+        return "<Report(id='%d', code='%s', predict='%s')>" % (self.id, self.code, str(self.predict))
