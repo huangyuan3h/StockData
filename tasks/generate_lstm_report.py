@@ -1,3 +1,5 @@
+import math
+
 from ml.data.verify import predict_result_by_code
 from ml.lstm.LSTMFactory import LSTMFactory
 from task_manager import task_manager
@@ -16,7 +18,7 @@ def generate_lstm_report(predict_day=3):
         with session_maker() as session:
             last_record = get_last(c)
             p = predict_result_by_code(c, factory.model)
-            if p is None or last_record is None:
+            if p is None or math.isnan(p) or last_record is None:
                 continue
             report = Report(code=c, predict=p, type=factory.name + '_' + str(predict_day),
                             timestamp=last_record.timestamp)
