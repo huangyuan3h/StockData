@@ -2,6 +2,7 @@ from ml.data.verify import predict_result_by_code
 from ml.lstm.LSTMFactory import LSTMFactory
 from task_manager import task_manager
 from tasks.sync_kline_day_all import get_all_code_list
+from log import log
 
 
 @task_manager.celery.task()
@@ -21,4 +22,5 @@ def generate_lstm_report(predict_day=3):
                             timestamp=last_record.timestamp)
             session.add(report)
             session.commit()
+            log.info("%s has been predicted and saved in db", c)
 
