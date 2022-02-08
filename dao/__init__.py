@@ -13,6 +13,8 @@ class DataAccess:
         app.config['SQLALCHEMY_DATABASE_URI'] = get_connection_str()
         self.db = SQLAlchemy(app)
         from dao.model import Stock
+        from dao.model import Kline
+        from dao.model import Report
         self.db.create_all()
         self.session = self.db.session
 

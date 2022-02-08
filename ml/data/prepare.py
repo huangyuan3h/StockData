@@ -1,5 +1,6 @@
 import random
 import typing
+import numpy
 
 from pandas import DataFrame
 from sklearn.impute import SimpleImputer
@@ -40,6 +41,7 @@ def get_change_by_mask_size(df: DataFrame, mask_size=10) -> float:
 
 def normalize_stock_data(data: DataFrame) -> DataFrame:
     return_data = data.copy()
+    return_data.sort_values(by="timestamp",  inplace=True)  # reverse order for lstm
     ## delete code id timestamp
     del return_data['id']
     del return_data['code']
@@ -58,3 +60,9 @@ def normalize_stock_data(data: DataFrame) -> DataFrame:
 def impute_data(df: DataFrame) -> DataFrame:
     imp = SimpleImputer()
     return DataFrame(imp.fit_transform(df), columns=df.columns, index=df.index)
+
+
+def reshape_data_to_1_d(train_data):
+    dataset = numpy.array(train_data)
+    column, nx, ny = dataset.shape
+    return dataset.reshape(column, nx * ny).tolist()

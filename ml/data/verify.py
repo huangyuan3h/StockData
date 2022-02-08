@@ -2,7 +2,7 @@ from typing import Optional
 
 from sklearn.metrics import mean_absolute_error
 
-from ml.data.BaseDataset import BaseDataset, reshape_data
+from ml.data.BaseDataset import BaseDataset
 from ml.data.prepare import get_stock_data, normalize_stock_data
 
 
@@ -17,7 +17,7 @@ def predict_result_by_code(code: str, model, chart_size=60) -> Optional[float]:
     df = get_stock_data(code, chart_size)
     if len(df.index) < chart_size:
         return None
-    nd_data = [normalize_stock_data(df).to_numpy()]
-    reshaped_data = reshape_data(nd_data)
-    predicted_y = model.predict(reshaped_data.tolist())
+    nd_data = normalize_stock_data(df).to_numpy().tolist()
+    reshaped_data = nd_data
+    predicted_y = model.predict([reshaped_data])
     return float(predicted_y[0])

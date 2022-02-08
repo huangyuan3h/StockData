@@ -1,4 +1,3 @@
-import numpy
 from pandas import DataFrame
 
 from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data_by_size, get_change_by_mask_size, \
@@ -13,15 +12,9 @@ def get_data_label_by_dataframe(df: DataFrame, mask_size=10):
     return nd_data, percentage
 
 
-def reshape_data(train_data):
-    dataset = numpy.array(train_data)
-    column, nx, ny = dataset.shape
-    return dataset.reshape(column, nx * ny)
-
-
 class BaseDataset(object):
 
-    def __init__(self, chart_size=60, mask_size=10, batch_size=10000, testing_batch_size=1000):
+    def __init__(self, chart_size=60, mask_size=3, batch_size=10**5, testing_batch_size=1000):
         self.chart_size = chart_size
         self.mask_size = mask_size
         self.batch_size = batch_size
@@ -45,11 +38,10 @@ class BaseDataset(object):
                     break
                 df2 = get_stock_data_by_size(df, self.min_training_size, offset)
                 nd_data, percentage = get_data_label_by_dataframe(df2, self.mask_size)
-                self.train_data.append(nd_data)
+                self.train_data.append(nd_data.tolist())
                 self.percentage_labels.append(percentage)
 
-        reshaped_data = reshape_data(self.train_data)
-        return reshaped_data, self.percentage_labels
+        return self.train_data, self.percentage_labels
 
     def get_test_data_set(self):
         self.test_labels = []
@@ -58,7 +50,6 @@ class BaseDataset(object):
             df = get_stock_data_greater_then_min_size(self.min_training_size, self.min_training_size)
             nd_data, percentage = get_data_label_by_dataframe(df, self.mask_size)
             self.test_labels.append(percentage)
-            self.testing_data.append(nd_data)
+            self.testing_data.append(nd_data.tolist())
 
-        reshaped_data = reshape_data(self.testing_data)
-        return reshaped_data, self.test_labels
+        return self.testing_data, self.test_labels

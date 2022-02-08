@@ -1,6 +1,7 @@
 from pandas import DataFrame
 
 import app
+from ml.data.prepare import reshape_data_to_1_d
 from ml.nn2.NeuralNetworkFactory import NeuralNetworkFactory
 from ml.nn2.model import get_early_stop_callback
 
@@ -13,8 +14,8 @@ if __name__ == '__main__':
     model = factory.model
 
     history = model.fit(
-        X.tolist(), y,
-        validation_data=(testing_X.tolist(), testing_y),
+        reshape_data_to_1_d(X), y,
+        validation_data=(reshape_data_to_1_d(testing_X), testing_y),
         batch_size=100,
         epochs=10,
         callbacks=[early_stopping],

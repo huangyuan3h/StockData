@@ -1,7 +1,8 @@
+from dao.kline_process import get_last
+from log import log
 from task_manager import task_manager
 from utils.dateUtils import to_db_timestamp, to_timestamp_millisecond, get_today_millisecond
 from xueqiu.kline import period_type, get_data
-from log import log
 
 DEFAULT_MODE = period_type['1day']
 
@@ -10,12 +11,6 @@ start_date = 1514736000000  # 2018-01-01
 one_day = 86400000  # 1 day millisecond
 
 count = 244 * 5  # 244 trade days *5 years
-
-
-def get_last(code):
-    from dao.model.Kline import Kline
-    result = Kline.query.filter_by(code=code).order_by(Kline.timestamp.desc()).first()
-    return result
 
 
 @task_manager.celery.task()
@@ -28,11 +23,10 @@ def sync_kline_by_code(code):
         return None
     data = get_data(code=code, begin=start_date_param, period=DEFAULT_MODE, count=str(count))
     kline_list = data['data']['item']
-    from dao import dao
+    from dao.session_maker import session_maker
     from dao.model.Kline import Kline
-    session = dao.db.session
 
-    try:
+    with session_maker() as session:
         for i in kline_list:
             stock = Kline(code=code, timestamp=to_db_timestamp(i[0]), volume=i[1], open=i[2], high=i[3],
                           low=i[4], close=i[5],
@@ -41,7 +35,4 @@ def sync_kline_by_code(code):
             session.add(stock)
         session.commit()
         log.info("%s has been synchronized to latest", code)
-    except:
-        session.rollback()
-        raise
     return data
