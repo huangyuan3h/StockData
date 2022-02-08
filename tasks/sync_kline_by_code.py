@@ -23,11 +23,10 @@ def sync_kline_by_code(code):
         return None
     data = get_data(code=code, begin=start_date_param, period=DEFAULT_MODE, count=str(count))
     kline_list = data['data']['item']
-    from dao import dao
+    from dao.session_maker import session_maker
     from dao.model.Kline import Kline
-    session = dao.db.session
 
-    try:
+    with session_maker() as session:
         for i in kline_list:
             stock = Kline(code=code, timestamp=to_db_timestamp(i[0]), volume=i[1], open=i[2], high=i[3],
                           low=i[4], close=i[5],
@@ -36,7 +35,4 @@ def sync_kline_by_code(code):
             session.add(stock)
         session.commit()
         log.info("%s has been synchronized to latest", code)
-    except:
-        session.rollback()
-        raise
     return data
