@@ -13,4 +13,4 @@ def get_all_code_list():
 def sync_kline_day_all():
     from tasks import run_by_code
     codes = get_all_code_list()
-    Parallel(n_jobs=20, backend="threading")(delayed(run_by_code)(code) for code in codes)
+    Parallel(n_jobs=30, backend="threading")(delayed(run_by_code)(code) for code in codes)

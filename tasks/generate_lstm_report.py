@@ -36,4 +36,4 @@ def predict_single(c: str, factory) -> None:
 def generate_lstm_report(predict_day=3):
     stock_code_list = get_all_code_list()
     factory = LSTMFactory(predict_day=predict_day)
-    Parallel(n_jobs=10, backend="threading")(delayed(predict_single)(code, factory) for code in stock_code_list)
+    Parallel(n_jobs=20, backend="threading")(delayed(predict_single)(code, factory) for code in stock_code_list)
