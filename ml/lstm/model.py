@@ -8,8 +8,8 @@ def get_lstm_model(n_steps=60, n_features=14, lstm_layer_size=1024):
     ])
     model.compile(
         optimizer='sgd',
-        loss='mean_squared_error',
-        metrics=['mean_squared_error'],
+        loss='mae',
+        metrics=['mae'],
     )
     return model
 
