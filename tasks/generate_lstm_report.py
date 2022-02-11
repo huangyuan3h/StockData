@@ -5,7 +5,7 @@ from joblib import Parallel, delayed
 
 from log import log
 from ml.data.verify import predict_result_by_code
-from ml.lstm.LSTMFactory import LSTMFactory
+from ml.get_factory import get_factory
 from task_manager import task_manager
 from tasks.sync_kline_day_all import get_all_code_list
 
@@ -33,7 +33,8 @@ def predict_single(c: str, factory) -> None:
 
 
 @task_manager.celery.task()
-def generate_lstm_report(predict_day=3):
+def generate_lstm_report(model_name='lstm', predict_day=3):
     stock_code_list = get_all_code_list()
-    factory = LSTMFactory(predict_day=predict_day)
+    Factory = get_factory(model_name)
+    factory = Factory(predict_day=predict_day)
     Parallel(n_jobs=20, backend="threading")(delayed(predict_single)(code, factory) for code in stock_code_list)

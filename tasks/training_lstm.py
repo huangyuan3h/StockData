@@ -1,17 +1,9 @@
 from pandas import DataFrame
 
 from log import log
-from ml.lstm.LSTMFactory import LSTMFactory
-from ml.lstm2.LSTMFactory import LSTM2Factory
+from ml.get_factory import get_factory
 from ml.nn2.model import get_early_stop_callback
 from task_manager import task_manager
-
-
-def get_factory(model_name='lstm'):
-    if model_name == 'lstm':
-        return LSTMFactory
-    if model_name == 'lstm2':
-        return LSTM2Factory
 
 
 @task_manager.celery.task()
