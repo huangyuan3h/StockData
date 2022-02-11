@@ -2,7 +2,6 @@ from pandas import DataFrame
 import app
 from ml.data.verify import predict_result_by_code
 from ml.lstm.LSTMFactory import LSTMFactory
-from ml.lstm.model import get_early_stop_callback
 
 if __name__ == '__main__':
     # factory = LSTMFactory(predict_day=3, path='../../model_data/lstm_3.tf')

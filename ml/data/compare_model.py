@@ -13,8 +13,8 @@ import app
 
 from ml.data.BaseDataset import BaseDataset
 from ml.lstm.LSTMFactory import LSTMFactory
-from ml.lstm.model import get_early_stop_callback
 from ml.lstm2.LSTMFactory import LSTM2Factory
+from ml.plugins.early_stop_callback import get_early_stop_callback
 
 if __name__ == '__main__':
     ds = BaseDataset(batch_size=10000, testing_batch_size=50)

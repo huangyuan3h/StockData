@@ -3,7 +3,7 @@ from pandas import DataFrame
 import app
 from ml.data.prepare import reshape_data_to_1_d
 from ml.nn2.NeuralNetworkFactory import NeuralNetworkFactory
-from ml.nn2.model import get_early_stop_callback
+from ml.plugins.early_stop_callback import get_early_stop_callback
 
 if __name__ == '__main__':
     factory = NeuralNetworkFactory(predict_day=3, path='../../model_data/neuralNetwork_3.tf')

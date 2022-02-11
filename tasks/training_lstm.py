@@ -2,7 +2,8 @@ from pandas import DataFrame
 
 from log import log
 from ml.get_factory import get_factory
-from ml.nn2.model import get_early_stop_callback
+from ml.plugins.early_stop_callback import get_early_stop_callback
+from ml.plugins.tensorboard_callback import tensorboard_callback
 from task_manager import task_manager
 
 
@@ -22,7 +23,7 @@ def training_lstm(model_name='lstm', predict_day=3, batch_size=10):
                 validation_data=(testing_X, testing_y),
                 batch_size=1000,
                 epochs=100,
-                callbacks=[early_stopping],
+                callbacks=[early_stopping, tensorboard_callback],
                 verbose=0,
             )
             # verify
