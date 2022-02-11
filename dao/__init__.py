@@ -11,6 +11,7 @@ class DataAccess:
 
     def register(self, app: Flask):
         app.config['SQLALCHEMY_DATABASE_URI'] = get_connection_str()
+        app.config['SQLALCHEMY_POOL_SIZE'] = 30
         self.db = SQLAlchemy(app)
         from dao.model import Stock
         from dao.model import Kline
