@@ -9,8 +9,10 @@ def get_lstm2_model(n_steps=60, n_features=14, lstm_layer_size=1024):
         layers.BatchNormalization(),
         layers.Dropout(0.1),
         layers.Dense(128, activation='relu'),
+        layers.BatchNormalization(),
         layers.Dropout(0.1),
         layers.Dense(64, activation='relu'),
+        layers.BatchNormalization(),
         layers.Dropout(0.1),
         layers.Dense(1),
     ])
@@ -24,7 +26,7 @@ def get_lstm2_model(n_steps=60, n_features=14, lstm_layer_size=1024):
 
 def get_early_stop_callback():
     early_stopping = callbacks.EarlyStopping(
-        min_delta=0.001,  # minimium amount of change to count as an improvement
+        min_delta=0.01,  # minimium amount of change to count as an improvement
         patience=20,  # how many epochs to wait before stopping
         restore_best_weights=True,
     )
