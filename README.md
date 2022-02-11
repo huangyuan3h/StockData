@@ -129,3 +129,9 @@ export FLASK_APP=app.py
 flask run
 ```
 
+### 5. start tensorboard
+
+```bash
+tensorboard --logdir=logs/fit/
+```
+
