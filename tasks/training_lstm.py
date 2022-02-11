@@ -2,13 +2,22 @@ from pandas import DataFrame
 
 from log import log
 from ml.lstm.LSTMFactory import LSTMFactory
+from ml.lstm2.LSTMFactory import LSTM2Factory
 from ml.nn2.model import get_early_stop_callback
 from task_manager import task_manager
 
 
+def get_factory(model_name='lstm'):
+    if model_name == 'lstm':
+        return LSTMFactory
+    if model_name == 'lstm2':
+        return LSTM2Factory
+
+
 @task_manager.celery.task()
-def training_lstm(predict_day=3, batch_size=10):
-    factory = LSTMFactory(predict_day=predict_day)
+def training_lstm(model_name='lstm', predict_day=3, batch_size=10):
+    Factory = get_factory(model_name)
+    factory = Factory(predict_day=predict_day)
     ds = factory.data_set
     model = factory.model
     testing_X, testing_y = ds.get_test_data_set()
