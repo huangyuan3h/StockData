@@ -17,7 +17,7 @@ from ml.lstm.model import get_early_stop_callback
 from ml.lstm2.LSTMFactory import LSTM2Factory
 
 if __name__ == '__main__':
-    ds = BaseDataset(batch_size=100000, testing_batch_size=50)
+    ds = BaseDataset(batch_size=10000, testing_batch_size=50)
     testing_X, testing_y = ds.get_test_data_set()
     early_stopping = get_early_stop_callback()
     X, y = ds.get_data_set()
@@ -30,7 +30,7 @@ if __name__ == '__main__':
     history1 = model1.fit(
         X, y,
         validation_data=(testing_X, testing_y),
-        batch_size=1000,
+        batch_size=100,
         epochs=100,
         callbacks=[early_stopping],
         verbose=0,
@@ -39,7 +39,7 @@ if __name__ == '__main__':
     history2 = model2.fit(
         X, y,
         validation_data=(testing_X, testing_y),
-        batch_size=1000,
+        batch_size=100,
         epochs=100,
         callbacks=[early_stopping],
         verbose=0,
