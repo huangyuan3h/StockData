@@ -6,7 +6,7 @@ DEFAULT_LENGTH = 10000  # set as default length
 
 
 @task_manager.celery.task()
-def sync_stock_list():
+def sync_stocks():
     log.info('sync stock start to run')
     data = get_list(1, DEFAULT_LENGTH)
     log.info("stock list contains %s has been pulled from server", len(data))

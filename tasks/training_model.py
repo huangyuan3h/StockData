@@ -1,5 +1,4 @@
 from pandas import DataFrame
-
 from log import log
 from ml.get_factory import get_factory
 from ml.plugins.early_stop_callback import get_early_stop_callback
@@ -8,7 +7,7 @@ from task_manager import task_manager
 
 
 @task_manager.celery.task()
-def training_lstm(model_name='lstm', predict_day=3, batch_size=10):
+def training_model(model_name='lstm', predict_day=3, batch_size=10):
     Factory = get_factory(model_name)
     factory = Factory(predict_day=predict_day)
     ds = factory.data_set

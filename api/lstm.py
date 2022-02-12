@@ -3,8 +3,8 @@ training the model by number
 """
 from ml.data.verify import predict_result_by_code
 from ml.get_factory import get_factory
-from tasks import generate_lstm_report as report
-from tasks import training_lstm as training
+from tasks import generate_report as report
+from tasks import training_model as training
 
 
 def training_lstm(model='lstm', predict_day=3, num=10):

@@ -2,12 +2,12 @@ from flask import jsonify
 
 from api.response_code import OK
 from dao.kline_process import get_kline_by_code
-from tasks import run_by_code
+from tasks import sync_kline_by_code
 from tasks import sync_kline_day_all
 
 
 def sync_stock_by_code(code: str):
-    run_by_code.delay(code)
+    sync_kline_by_code.delay(code)
     return OK
 
 

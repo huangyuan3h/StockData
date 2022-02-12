@@ -1,8 +1,12 @@
+from joblib import Parallel, delayed
+
+from dao.stock_process import get_stock_code_list
 from dao.kline_process import get_last
 from log import log
 from task_manager import task_manager
 from utils.dateUtils import to_db_timestamp, to_timestamp_millisecond, get_today_millisecond
 from xueqiu.kline import period_type, get_data
+
 
 DEFAULT_MODE = period_type['1day']
 
@@ -36,3 +40,14 @@ def sync_kline_by_code(code):
         session.commit()
         log.info("%s has been synchronized to latest", code)
     return data
+
+
+def get_all_code_list():
+    codes = get_stock_code_list()
+    return codes
+
+
+@task_manager.celery.task()
+def sync_kline_day_all():
+    codes = get_all_code_list()
+    Parallel(n_jobs=30, backend="threading")(delayed(sync_kline_by_code)(code) for code in codes)
