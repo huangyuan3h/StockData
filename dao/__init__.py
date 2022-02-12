@@ -16,6 +16,8 @@ class DataAccess:
         from dao.model import Stock
         from dao.model import Kline
         from dao.model import Report
+        from dao.model import Index
+        from dao.model import IndexKline
         self.db.create_all()
         self.session = self.db.session
 
