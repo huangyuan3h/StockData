@@ -1,4 +1,4 @@
-from api.Response_Code import OK
+from api.response_code import OK
 
 
 def get_task():

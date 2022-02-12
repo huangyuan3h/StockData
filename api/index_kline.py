@@ -1,4 +1,4 @@
-from api.Response_Code import OK
+from api.response_code import OK
 
 
 def sync_index_kline_by_code(code: str):

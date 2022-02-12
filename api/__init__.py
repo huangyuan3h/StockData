@@ -2,9 +2,9 @@ from flask import Flask
 
 
 def register_router(app: Flask):
-    from api.GetTasks import get_task
+    from api.tasks import get_task
     from api.stock import sync_stock_list
-    from api.get_stock_data import get_stock_data
+    from api.kline import get_stock_data
     from api.kline import sync_all_stock
     from api.kline import sync_stock_by_code
     from api.index_kline import sync_index_kline_by_code
