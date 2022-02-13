@@ -1,31 +1,16 @@
 from joblib import Parallel, delayed
-
-from dao.stock_process import get_stock_code_list
 from dao.kline_process import get_last
+from dao.stock_process import get_stock_code_list
 from log import log
 from task_manager import task_manager
-from utils.dateUtils import to_db_timestamp, to_timestamp_millisecond, get_today_millisecond
-from xueqiu.kline import period_type, get_data
-
-
-DEFAULT_MODE = period_type['1day']
-
-start_date = 1514736000000  # 2018-01-01
-
-one_day = 86400000  # 1 day millisecond
-
-count = 244 * 5  # 244 trade days *5 years
+from utils.dateUtils import to_db_timestamp
+from xueqiu.kline import get_data_from_last_record
 
 
 @task_manager.celery.task()
 def sync_kline_by_code(code):
     last_record = get_last(code)
-    start_date_param = start_date if (last_record is None) else (
-        to_timestamp_millisecond(last_record.timestamp) + one_day)  # next day of last record
-
-    if start_date_param == get_today_millisecond() + one_day:  # if the data has been sync skip
-        return None
-    data = get_data(code=code, begin=start_date_param, period=DEFAULT_MODE, count=str(count))
+    data = get_data_from_last_record(code, getattr(last_record, 'timestamp', None))
     kline_list = data['data']['item']
     from dao.session_maker import session_maker
     from dao.model.Kline import Kline

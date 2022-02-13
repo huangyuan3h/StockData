@@ -1,6 +1,3 @@
-
-
-
 def get_stock_code_list():
     from dao.model.Stock import Stock
     stocks = Stock.query.all()
