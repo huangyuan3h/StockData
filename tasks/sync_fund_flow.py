@@ -1,7 +1,10 @@
+from joblib import Parallel, delayed
+
 from dao.fund_flow_process import get_last
 from eastmoney.fund_flow import get_data_by_code
 from log import log
 from task_manager import task_manager
+from tasks.sync_kline import get_all_code_list
 from utils.dateUtils import string_to_datetime
 
 
@@ -22,3 +25,9 @@ def sync_fund_flow_by_code(code: str):
             session.add(fund_flow)
         session.commit()
         log.info("%s has been synchronized to latest", code)
+
+
+@task_manager.celery.task()
+def sync_all_fund_flow():
+    codes = get_all_code_list()
+    Parallel(n_jobs=30, backend="threading")(delayed(sync_fund_flow_by_code)(code) for code in codes)
