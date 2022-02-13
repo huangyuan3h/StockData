@@ -18,6 +18,7 @@ class DataAccess:
         from dao.model import Report
         from dao.model import Index
         from dao.model import IndexKline
+        from dao.model import FundFlow
         self.db.create_all()
         self.session = self.db.session
 
