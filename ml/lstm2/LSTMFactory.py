@@ -12,7 +12,7 @@ class LSTM2Factory(BaseModelFactory):
         """
         data part
         """
-        BaseModelFactory.__init__(name=name, predict_day=predict_day, chart_size=chart_size, batch_size=batch_size,
+        BaseModelFactory.__init__(self, name=name, predict_day=predict_day, chart_size=chart_size, batch_size=batch_size,
                                   path=path)
         self.data_set = BaseDataset(chart_size=chart_size, mask_size=predict_day, batch_size=batch_size)
 

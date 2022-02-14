@@ -9,7 +9,7 @@ from ml.lstm.model import get_lstm_model
 
 class LSTMFactory(BaseModelFactory):
     def __init__(self, name='lstm', predict_day=3, chart_size=60, batch_size=1000, new_model=False, path=None):
-        BaseModelFactory.__init__(name=name, predict_day=predict_day, chart_size=chart_size, batch_size=batch_size,
+        BaseModelFactory.__init__(self, name=name, predict_day=predict_day, chart_size=chart_size, batch_size=batch_size,
                                   path=path)
         """
         data part
