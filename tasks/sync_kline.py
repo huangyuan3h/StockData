@@ -11,6 +11,9 @@ from xueqiu.kline import get_data_from_last_record
 def sync_kline_by_code(code):
     last_record = get_last(code)
     data = get_data_from_last_record(code, getattr(last_record, 'timestamp', None))
+    if data is None:
+        log.info(f"skip sync: {code}")
+        return
     kline_list = data['data']['item']
     from dao.session_maker import session_maker
     from dao.model.Kline import Kline
@@ -35,4 +38,4 @@ def get_all_code_list():
 @task_manager.celery.task()
 def sync_kline_day_all():
     codes = get_all_code_list()
-    Parallel(n_jobs=30, backend="threading")(delayed(sync_kline_by_code)(code) for code in codes)
+    Parallel(n_jobs=10, backend="threading")(delayed(sync_kline_by_code)(code) for code in codes)
