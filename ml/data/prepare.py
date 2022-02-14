@@ -14,9 +14,9 @@ def choose_a_random_stock_code() -> str:
 
 def get_stock_data(code=None, size=500) -> DataFrame:
     from dao.kline_process import get_kline_by_code
-    from dao.mapping.kline_mapping import kline_obj_2_dataframe
+    from dao.mapping.base_mapping import obj_2_dataframe
     code = code if code is not None else choose_a_random_stock_code()
-    return kline_obj_2_dataframe(get_kline_by_code(code, size))
+    return obj_2_dataframe(get_kline_by_code(code, size))
 
 
 def get_stock_data_greater_then_min_size(min_size=70, total_size=500) -> DataFrame:
