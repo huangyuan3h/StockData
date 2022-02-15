@@ -3,7 +3,7 @@ import os
 from tensorflow import keras
 
 from ml.BaseModelFactory import BaseModelFactory
-from ml.data.BaseDataset import BaseDataset
+from ml.lstm3.FundFlowDataset import FundFlowDataset
 from ml.lstm3.model import get_lstm3_model
 
 
@@ -14,7 +14,7 @@ class LSTM3Factory(BaseModelFactory):
         """
         BaseModelFactory.__init__(self, name=name, predict_day=predict_day, chart_size=chart_size, batch_size=batch_size,
                                   path=path)
-        self.data_set = BaseDataset(chart_size=chart_size, mask_size=predict_day, batch_size=batch_size)
+        self.data_set = FundFlowDataset(chart_size=chart_size, mask_size=predict_day, batch_size=batch_size)
 
         """
         model:

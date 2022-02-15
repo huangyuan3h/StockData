@@ -1,7 +1,7 @@
 from tensorflow.keras import layers, Sequential
 
 
-def get_lstm3_model(n_steps=60, n_features=14, lstm_layer_size=2048):
+def get_lstm3_model(n_steps=60, n_features=20, lstm_layer_size=2048):
     model = Sequential([
         layers.LSTM(units=lstm_layer_size, return_sequences=True, input_shape=(n_steps, n_features)),
         layers.LSTM(lstm_layer_size / 2 ** 1, return_sequences=True),
