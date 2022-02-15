@@ -19,7 +19,7 @@ class LSTM3Factory(BaseModelFactory):
         """
         model:
         """
-        self.model = get_lstm3_model(n_steps=60, n_features=14, lstm_layer_size=1024) if new_model or not os.path.isfile(
+        self.model = get_lstm3_model() if new_model or not os.path.isfile(
             self.path) else keras.models.load_model(path)
 
 
