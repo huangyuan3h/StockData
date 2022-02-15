@@ -16,6 +16,9 @@ def get_index_kline_list():
 def sync_index_kline_by_code(code: str):
     last_record = get_last(code)
     data = get_data_from_last_record(code, getattr(last_record, 'timestamp', None))
+    if data is None:
+        log.info(f"skip sync: {code}")
+        return
     index_kline_list = data['data']['item']
     from dao.session_maker import session_maker
     from dao.model.IndexKline import IndexKline
@@ -27,7 +30,7 @@ def sync_index_kline_by_code(code: str):
             session.add(index)
         session.commit()
         log.info("index kline %s has been synchronized to latest", code)
-    return data
+    return
 
 
 @task_manager.celery.task()

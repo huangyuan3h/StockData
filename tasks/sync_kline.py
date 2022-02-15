@@ -27,7 +27,7 @@ def sync_kline_by_code(code):
             session.add(stock)
         session.commit()
         log.info("kline %s has been synchronized to latest", code)
-    return data
+    return
 
 
 def get_all_code_list():
