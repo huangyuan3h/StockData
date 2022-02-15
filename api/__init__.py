@@ -8,6 +8,7 @@ def register_router(app: Flask):
     from api.index_kline import sync_index_kline_by_code
     from api.lstm import training_lstm, predict_n_day_by_stock_code, generate_n_day_report
     from api.fund_flow import sync_all_fund_flow, sync_fund_flow_by_code
+    from api.all import run_all_daily_task
 
     app.add_url_rule('/tasks', 'tasks', methods=['get'], view_func=get_task)
     # functional endpoint
@@ -37,3 +38,6 @@ def register_router(app: Flask):
 
     app.add_url_rule('/report/<string:model>/<int:predict_day>', 'generate_decision_tree_report', methods=['get'],
                      view_func=generate_n_day_report)
+
+    app.add_url_rule('/sync/all', 'run_all_daily_task', methods=['get'],
+                     view_func=run_all_daily_task)
