@@ -26,7 +26,7 @@ def sync_index_kline_by_code(code: str):
                                chg=i[6], percent=i[7], turnoverrate=i[8], amount=i[9])
             session.add(index)
         session.commit()
-        log.info("%s has been synchronized to latest", code)
+        log.info("index kline %s has been synchronized to latest", code)
     return data
 
 
@@ -34,3 +34,4 @@ def sync_index_kline_by_code(code: str):
 def sync_index_kline_day_all():
     indexes = get_index_kline_list()
     Parallel(n_jobs=30, backend="threading")(delayed(sync_index_kline_by_code)(i) for i in indexes)
+    log.info("sync the index kline task finished!!!")

@@ -26,7 +26,7 @@ def sync_kline_by_code(code):
                           pb=i[13], ps=i[14], pcf=i[15], market_capital=i[16])
             session.add(stock)
         session.commit()
-        log.info("%s has been synchronized to latest", code)
+        log.info("kline %s has been synchronized to latest", code)
     return data
 
 
@@ -39,3 +39,4 @@ def get_all_code_list():
 def sync_kline_day_all():
     codes = get_all_code_list()
     Parallel(n_jobs=10, backend="threading")(delayed(sync_kline_by_code)(code) for code in codes)
+    log.info("sync the kline task finished!!!")

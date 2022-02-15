@@ -24,10 +24,11 @@ def sync_fund_flow_by_code(code: str):
                                  large_percent=i[9], middle_percent=i[8], small_percent=i[7])
             session.add(fund_flow)
         session.commit()
-        log.info("%s has been synchronized to latest", code)
+        log.info("fund flow %s has been synchronized to latest", code)
 
 
 @task_manager.celery.task()
 def sync_all_fund_flow():
     codes = get_all_code_list()
     Parallel(n_jobs=30, backend="threading")(delayed(sync_fund_flow_by_code)(code) for code in codes)
+    log.info("sync the fund flow task finished!!!")
