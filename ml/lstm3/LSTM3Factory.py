@@ -5,6 +5,7 @@ from tensorflow import keras
 from ml.BaseModelFactory import BaseModelFactory
 from ml.lstm3.FundFlowDataset import FundFlowDataset
 from ml.lstm3.model import get_lstm3_model
+from ml.data.prepare import get_stock_data, normalize_stock_data
 
 
 class LSTM3Factory(BaseModelFactory):
@@ -23,3 +24,11 @@ class LSTM3Factory(BaseModelFactory):
             self.path) else keras.models.load_model(path)
 
 
+    def predict_today_by_code(self, code: str):
+        df = get_stock_data(code, self.chart_size)
+        if len(df.index) < self.chart_size:
+            return None
+        nd_data = normalize_stock_data(df).to_numpy().tolist()
+        reshaped_data = nd_data
+        predicted_y = self.model.predict([reshaped_data])
+        return float(predicted_y[0])

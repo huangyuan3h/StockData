@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from tensorflow import keras
 
@@ -26,3 +26,7 @@ class BaseModelFactory(ABC):
     def load(self, path=None):
         self.model = keras.models.load_model(path if path is not None else self.path)
         return self.model
+
+    @abstractmethod
+    def predict_today_by_code(self, code):
+        pass

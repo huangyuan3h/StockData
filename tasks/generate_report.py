@@ -2,7 +2,6 @@ import math
 from datetime import datetime
 from joblib import Parallel, delayed
 from log import log
-from ml.data.verify import predict_result_by_code
 from ml.get_factory import get_factory
 from task_manager import task_manager
 from tasks.sync_kline import get_all_code_list
@@ -20,7 +19,7 @@ def predict_single(c: str, factory) -> None:
         return
     last_record = get_last(c)
     with session_maker() as session:
-        p = predict_result_by_code(c, factory.model)
+        p = factory.predict_today_by_code(c)
         if p is None or math.isnan(p) or last_record is None:
             return
         report = Report(code=c, predict=p, type=current_type,
