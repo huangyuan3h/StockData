@@ -1,7 +1,6 @@
 """
 training the model by number
 """
-from ml.data.verify import predict_result_by_code
 from ml.get_factory import get_factory
 from tasks import generate_report as report
 from tasks import training_model as training
@@ -15,7 +14,7 @@ def training_lstm(model='lstm', predict_day=3, num=10):
 def predict_n_day_by_stock_code(code: str, model='lstm', predict_day=3):
     Factory = get_factory(model)
     factory = Factory(predict_day=predict_day)
-    result = predict_result_by_code(code, factory.model)
+    result = factory.predict_today_by_code(code)
     if result is None:
         return "not able to predict"
     else:

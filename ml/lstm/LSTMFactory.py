@@ -25,7 +25,7 @@ class LSTMFactory(BaseModelFactory):
             self.path) else keras.models.load_model(path)
 
     def predict_today_by_code(self, code: str):
-        df = get_stock_data(code, self.chart_size)
+        df = self.data_set.get_today_df_by_code(code)
         if len(df.index) < self.chart_size:
             return None
         nd_data = normalize_stock_data(df).to_numpy().tolist()

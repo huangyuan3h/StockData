@@ -2,7 +2,7 @@ from pandas import DataFrame
 
 from ml.data.BaseDataset import BaseDataset
 from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data_by_size, get_change_by_mask_size, \
-    normalize_stock_data
+    normalize_stock_data, get_stock_data
 
 default_limit = 100
 
@@ -24,14 +24,13 @@ def get_stock_data_greater_then_min_size_with_fund_flow(min_size: int, limit: in
     # merge fund flow to main df
     del fund_flow["code"]
     del fund_flow["id"]
-    fund_flow['timestamp1'] = fund_flow['timestamp']
     joined_df = df.set_index('timestamp').join(fund_flow.set_index('timestamp'))
 
     # merge the index data
     all_df = joined_df.join(index_df.set_index('timestamp'))
 
     # reset the place of timestamp
-    all_df.rename(columns={"timestamp1": "timestamp"}, inplace=True)
+    all_df.reset_index(inplace=True)
     return all_df
 
 
@@ -81,3 +80,9 @@ class FundFlowDataset(BaseDataset):
                 self.test_labels.append(percentage)
 
         return self.testing_data, self.test_labels
+
+    def get_today_df_by_code(self, code: str):
+        df = get_stock_data_greater_then_min_size_with_fund_flow(self.chart_size, self.chart_size,
+                                                                     self.index_df)
+
+        return df
