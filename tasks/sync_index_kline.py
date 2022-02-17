@@ -34,7 +34,7 @@ def sync_index_kline_by_code(code: str):
 
 
 @task_manager.celery.task()
-def sync_index_kline_day_all():
+def sync_index_kline_day_all(*args, **kwargs):
     indexes = get_index_kline_list()
     Parallel(n_jobs=30, backend="threading")(delayed(sync_index_kline_by_code)(i) for i in indexes)
     log.info("sync the index kline task finished!!!")

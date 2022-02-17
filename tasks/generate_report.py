@@ -1,6 +1,8 @@
 import math
 from datetime import datetime
+
 from joblib import Parallel, delayed
+
 from log import log
 from ml.get_factory import get_factory
 from task_manager import task_manager
@@ -30,7 +32,7 @@ def predict_single(c: str, factory) -> None:
 
 
 @task_manager.celery.task()
-def generate_report(model_name='lstm', predict_day=3):
+def generate_report(model_name='lstm', predict_day=3, *args, **kwargs):
     stock_code_list = get_all_code_list()
     Factory = get_factory(model_name)
     factory = Factory(predict_day=predict_day)
