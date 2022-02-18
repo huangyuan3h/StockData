@@ -2,7 +2,7 @@ from pandas import DataFrame
 
 from ml.data.BaseDataset import BaseDataset
 from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data_by_size, get_change_by_mask_size, \
-    normalize_stock_data, get_stock_data
+    normalize_stock_data
 
 default_limit = 100
 

@@ -1,0 +1,12 @@
+times : 800,000
+
+each epoch: 1000
+
+---
+
+so I need to train  800 epochs
+
+each time training 10 times
+
+
+
