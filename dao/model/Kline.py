@@ -1,10 +1,10 @@
-import decimal
 from sqlalchemy import Column, String, Integer, DECIMAL, TIMESTAMP
 
 from dao import dao
+from dao.model.DictMixIn import DictMixIn
 
 
-class Kline(dao.db.Model):
+class Kline(dao.Model, DictMixIn):
     __tablename__ = 'kline'
     id = Column(Integer, primary_key=True)
     code = Column(String(16))
@@ -26,12 +26,3 @@ class Kline(dao.db.Model):
 
     def __repr__(self):
         return "<kline(id='%d', code='%s', timestamp='%s')>" % (self.id, self.code, str(self.timestamp))
-
-    def as_dict(self):
-        def get_value(v: any):
-            if isinstance(v, decimal.Decimal):
-                return float(v)
-            else:
-                return v
-
-        return {c.name: get_value(getattr(self, c.name)) for c in self.__table__.columns}

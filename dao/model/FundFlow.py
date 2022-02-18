@@ -2,9 +2,10 @@ from sqlalchemy import Column, String, Integer, TIMESTAMP, DECIMAL
 import decimal
 
 from dao import dao
+from dao.model.DictMixIn import DictMixIn
 
 
-class FundFlow(dao.db.Model):
+class FundFlow(dao.Model, DictMixIn):
     __tablename__ = 'fund_flow'
     id = Column(Integer, primary_key=True)
     code = Column(String(16))
@@ -18,11 +19,3 @@ class FundFlow(dao.db.Model):
     def __repr__(self):
         return "<FundFlow(id='%d', code='%s', timestamp='%s')>" % (self.id, self.code, str(self.timestamp))
 
-    def as_dict(self):
-        def get_value(v: any):
-            if isinstance(v, decimal.Decimal):
-                return float(v)
-            else:
-                return v
-
-        return {c.name: get_value(getattr(self, c.name)) for c in self.__table__.columns}
