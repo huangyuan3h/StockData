@@ -1,12 +1,16 @@
-times : 800,000
+total stock data samples: 150,000
 
-each epoch: 1000
+epoch: 4 , so all model will check 4* 150,000 times
 
----
+batch_size: 1000, you will have 150 batches
 
-so I need to train  800 epochs
+------------
 
-each time training 10 times
+
+
+
+
+
 
 
 

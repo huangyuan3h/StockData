@@ -10,15 +10,13 @@ def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwa
     factory = Factory(predict_day=predict_day)
     ds = factory.data_set
     model = factory.model
-    current_epoch = 0
     for i in range(batch_size):
         try:
             X, y = ds.get_data_set()
             model.fit(
                 X, y,
                 batch_size=1000,
-                epochs=400,
-                initial_epoch=current_epoch + i,
+                epochs=4,
                 callbacks=[get_tensor_board_callback()],
                 verbose=0,
             )
