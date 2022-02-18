@@ -1,9 +1,8 @@
 from pandas import DataFrame
-from tensorflow import keras, convert_to_tensor
 
 from ml.data.BaseDataset import BaseDataset
 from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data_by_size, get_change_by_mask_size, \
-    normalize_stock_data
+    normalize_stock_data, get_stock_data
 
 default_limit = 100
 
@@ -35,16 +34,16 @@ def get_stock_data_greater_then_min_size_with_fund_flow(min_size: int, limit: in
     return all_df
 
 
-class FundFlowDataset(BaseDataset, keras.utils.Sequence):
+class FundFlowDataset(BaseDataset):
 
-    def __init__(self, chart_size=60, mask_size=3, batch_size=10 ** 3, testing_batch_size=10 ** 3):
+    def __init__(self, chart_size=60, mask_size=3, batch_size=10 ** 5, testing_batch_size=10 ** 3):
         BaseDataset.__init__(self, chart_size=chart_size, mask_size=mask_size, batch_size=batch_size,
                              testing_batch_size=testing_batch_size)
         # index list
         from dao.index_kline_process import get_index_kline
         from dao.mapping.base_mapping import obj_2_dataframe
         all_index_df = obj_2_dataframe(get_index_kline("SH000001", default_limit))
-        self.index_df = all_index_df.loc[:, ["timestamp", "close"]]
+        self.index_df = all_index_df[["timestamp", "close"]]
         self.index_df.rename(columns={"close": "index_close"}, inplace=True)
 
     def get_data_set(self):
@@ -62,13 +61,7 @@ class FundFlowDataset(BaseDataset, keras.utils.Sequence):
                 self.train_data.append(nd_data.tolist())
                 self.percentage_labels.append(percentage)
 
-        return convert_to_tensor(self.train_data), convert_to_tensor(self.percentage_labels)
-
-    def __len__(self):
-        return self.batch_size
-
-    def __getitem__(self, index):
-        return self.get_data_set()
+        return self.train_data, self.percentage_labels
 
     def get_test_data_set(self):
         self.test_labels = []
@@ -86,10 +79,10 @@ class FundFlowDataset(BaseDataset, keras.utils.Sequence):
                 self.testing_data.append(nd_data.tolist())
                 self.test_labels.append(percentage)
 
-        return convert_to_tensor(self.testing_data), convert_to_tensor(self.test_labels)
+        return self.testing_data, self.test_labels
 
     def get_today_df_by_code(self, code: str):
         df = get_stock_data_greater_then_min_size_with_fund_flow(self.chart_size, self.chart_size,
-                                                                 self.index_df)
+                                                                     self.index_df)
 
         return df
