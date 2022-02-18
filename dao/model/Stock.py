@@ -2,7 +2,7 @@ from sqlalchemy import Column, String
 from dao import dao
 
 
-class Stock(dao.Model):
+class Stock(dao.db.Model):
     __tablename__ = 'stock'
     code = Column(String(16), unique=True, primary_key=True)
     name = Column(String(64), unique=True, nullable=True)

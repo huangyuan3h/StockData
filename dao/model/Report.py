@@ -2,7 +2,7 @@ from sqlalchemy import Column, String, Integer, DECIMAL, TIMESTAMP
 from dao import dao
 
 
-class Report(dao.Model):
+class Report(dao.db.Model):
     __tablename__ = 'report'
     id = Column(Integer, primary_key=True)
     code = Column(String(16))

@@ -2,7 +2,7 @@ from sqlalchemy import Column, String
 from dao import dao
 
 
-class Index(dao.Model):
+class Index(dao.db.Model):
     __tablename__ = 'index'
     code = Column(String(16), unique=True, primary_key=True)
     name = Column(String(64), unique=True, nullable=True)

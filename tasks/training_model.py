@@ -6,7 +6,7 @@ from task_manager import task_manager
 
 
 @task_manager.celery.task()
-def training_model(model_name='lstm3', predict_day=3, batch_size=10):
+def training_model(model_name='lstm3', predict_day=3, batch_size=1000):
     Factory = get_factory(model_name)
     factory = Factory(predict_day=predict_day, batch_size=batch_size)
     ds = factory.data_set
@@ -14,7 +14,7 @@ def training_model(model_name='lstm3', predict_day=3, batch_size=10):
     try:
         model.fit(
             ds,
-            epochs=10,
+            epochs=1000,
             callbacks=[get_tensor_board_callback(model_name),
                        get_check_point_callback(model_name=model_name, predict_day=predict_day)],
             verbose=0,

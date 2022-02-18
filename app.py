@@ -25,7 +25,7 @@ task_manager.initial(app)
 celery = task_manager.celery
 
 # register sqlalchemy
-dao.register()  # data access object
+dao.register(app)  # data access object
 register_router(app)  # register API router
 
 if __name__ == '__main__':
