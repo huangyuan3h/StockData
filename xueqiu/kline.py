@@ -1,6 +1,8 @@
+from datetime import datetime
+from typing import Optional
 import requests
-
 from utils.dateUtils import get_current_timestamp_millisecond
+from utils.dateUtils import to_timestamp_millisecond, get_today_millisecond
 from xueqiu.CookieManager import cookieManager
 
 URL = 'https://stock.xueqiu.com/v5/stock/chart/kline.json'
@@ -26,6 +28,14 @@ HEADERS = {
     'Cookie': cookieManager.get_cookies(),
 }
 
+start_date = 1514736000000  # 2018-01-01
+
+one_day = 86400000  # 1 day millisecond
+
+DEFAULT_MODE = period_type['1day']
+
+count = 244 * 5  # 244 trade days *5 years
+
 
 def get_data(code='SH600519', begin=get_current_timestamp_millisecond(), search_type='before', period='day', count='1'):
     PARAMS.update({'symbol': code, 'begin': begin, 'period': period, 'type': search_type,
@@ -34,7 +44,15 @@ def get_data(code='SH600519', begin=get_current_timestamp_millisecond(), search_
     return r.json()
 
 
+def get_data_from_last_record(code: str, timestamp: Optional[datetime]):
+    start_date_param = start_date if timestamp is None else (
+        to_timestamp_millisecond(timestamp) + one_day)  # next day of last record
+
+    if start_date_param == get_today_millisecond() + one_day:  # if the data has been sync skip
+        return None
+    return get_data(code=code, begin=start_date_param, period=DEFAULT_MODE, count=str(count))
+
+
 if __name__ == '__main__':
     data = get_data()
     print(data)
-

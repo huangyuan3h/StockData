@@ -2,29 +2,42 @@ from flask import Flask
 
 
 def register_router(app: Flask):
-    from api.GetTasks import get_task
-    from api.KLineDayDataByStockCode import start_sync_stock_by_code
-    from api.KlineAllStock import sync_all_stock
-    from api.StockList import start_sync_stock_list
-    from api.get_stock_data import get_stock_data
-    from api.lstm import training_lstm
-    from api.lstm import predict_n_day_by_stock_code
-    from api.lstm import generate_n_day_report
+    from api.tasks import get_task
+    from api.stock import sync_stocks
+    from api.kline import get_stock_data, sync_stock_by_code, sync_all_stock
+    from api.index_kline import sync_index_kline_by_code
+    from api.lstm import training_lstm, predict_n_day_by_stock_code, generate_n_day_report
+    from api.fund_flow import sync_all_fund_flow, sync_fund_flow_by_code
+    from api.all import run_all_daily_task
 
     app.add_url_rule('/tasks', 'tasks', methods=['get'], view_func=get_task)
     # functional endpoint
-    app.add_url_rule('/sync/StockList', 'sync_stock_lists', methods=['get'], view_func=start_sync_stock_list)
-    app.add_url_rule('/sync/KLineDay/<string:code>', 'sync_stock_by_day', methods=['get'],
-                     view_func=start_sync_stock_by_code)
-    app.add_url_rule('/sync/KLineAllDay', 'sync_all_stock', methods=['get'], view_func=sync_all_stock)
+    app.add_url_rule('/sync/stocks', 'sync_stocks', methods=['get'], view_func=sync_stocks)
+
+    app.add_url_rule('/sync/kline/all', 'sync_all_stock', methods=['get'], view_func=sync_all_stock)
+
+    app.add_url_rule('/sync/kline_by_code/<string:code>', 'sync_kline_by_code', methods=['get'],
+                     view_func=sync_stock_by_code)
+
+    app.add_url_rule('/sync/index_kline_by_code/<string:code>', 'sync_index_kline_by_code', methods=['get'],
+                     view_func=sync_index_kline_by_code)
+
+    app.add_url_rule('/sync/fund_flow/all', 'sync_fund_flow_all', methods=['get'],
+                     view_func=sync_all_fund_flow)
+
+    app.add_url_rule('/sync/fund_flow_by_code/<string:code>', 'sync_fund_flow_by_code', methods=['get'],
+                     view_func=sync_fund_flow_by_code)
 
     app.add_url_rule('/stock/<string:code>', 'get_stock_data', methods=['get'], view_func=get_stock_data)
 
-    app.add_url_rule('/training/lstm/<int:predict_day>/<int:num>', 'training_lstm', methods=['get'],
+    app.add_url_rule('/training/<string:model>/<int:predict_day>/<int:num>', 'training_lstm', methods=['get'],
                      view_func=training_lstm)
 
-    app.add_url_rule('/predict/lstm/<int:predict_day>/<string:code>', 'predict_lstm_by_code', methods=['get'],
+    app.add_url_rule('/predict/<string:model>/<int:predict_day>/<string:code>', 'predict_lstm_by_code', methods=['get'],
                      view_func=predict_n_day_by_stock_code)
 
-    app.add_url_rule('/report/lstm/<int:predict_day>', 'generate_decision_tree_report', methods=['get'],
+    app.add_url_rule('/report/<string:model>/<int:predict_day>', 'generate_decision_tree_report', methods=['get'],
                      view_func=generate_n_day_report)
+
+    app.add_url_rule('/sync/all', 'run_all_daily_task', methods=['get'],
+                     view_func=run_all_daily_task)

@@ -2,7 +2,7 @@ import app
 import pandas as pd
 
 from ml.data.BaseDataset import BaseDataset
-from tasks.sync_kline_day_all import get_all_code_list
+from tasks.sync_kline import get_all_code_list
 
 if __name__ == '__main__':
     # if not decision_tree.loaded:
