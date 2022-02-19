@@ -43,7 +43,7 @@ class FundFlowDataset(BaseDataset):
         from dao.index_kline_process import get_index_kline
         from dao.mapping.base_mapping import obj_2_dataframe
         all_index_df = obj_2_dataframe(get_index_kline("SH000001", default_limit))
-        self.index_df = all_index_df[["timestamp", "close"]]
+        self.index_df = all_index_df.loc[:, ["timestamp", "close"]]
         self.index_df.rename(columns={"close": "index_close"}, inplace=True)
 
     def get_data_set(self):

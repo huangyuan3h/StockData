@@ -1,5 +1,6 @@
 from log import log
 from ml.get_factory import get_factory
+from ml.plugins.check_point_callback import get_check_point_callback
 from ml.plugins.tensorboard_callback import get_tensor_board_callback
 from task_manager import task_manager
 
@@ -15,9 +16,10 @@ def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwa
             X, y = ds.get_data_set()
             model.fit(
                 X, y,
-                batch_size=1000,
+                batch_size=100,
                 epochs=4,
-                callbacks=[get_tensor_board_callback()],
+                callbacks=[get_tensor_board_callback(),
+                           get_check_point_callback(model_name=model_name, predict_day=predict_day)],
                 verbose=0,
             )
             factory.save()
