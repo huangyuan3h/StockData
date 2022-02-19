@@ -14,6 +14,7 @@ def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwa
     for i in range(batch_size):
         try:
             X, y = ds.get_data_set()
+            log.info(f"training No {i},got all the data")
             model.fit(
                 X, y,
                 batch_size=100,
