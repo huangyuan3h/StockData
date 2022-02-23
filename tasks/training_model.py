@@ -11,6 +11,7 @@ def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwa
     factory = Factory(predict_day=predict_day)
     ds = factory.data_set
     model = factory.model
+    testing_X, testing_y = ds.get_test_data_set()
     for i in range(batch_size):
         try:
             X, y = ds.get_data_set()
@@ -19,6 +20,7 @@ def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwa
                 X, y,
                 batch_size=10,
                 epochs=10,
+                validation_data=(testing_X, testing_y),
                 callbacks=[get_tensor_board_callback(model_name=model_name, predict_day=predict_day),
                            get_check_point_callback(model_name=model_name, predict_day=predict_day)],
                 verbose=0,

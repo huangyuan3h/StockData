@@ -1,0 +1,16 @@
+total stock data samples: 150,000
+
+epoch: 4 , so all model will check 4* 150,000 times
+
+batch_size: 1000, you will have 150 batches
+
+------------
+
+
+
+
+
+
+
+
+
