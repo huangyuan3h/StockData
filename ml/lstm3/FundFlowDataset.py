@@ -2,7 +2,7 @@ from pandas import DataFrame
 
 from ml.data.BaseDataset import BaseDataset
 from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data_by_size, get_change_by_mask_size, \
-    normalize_stock_data, get_stock_data
+    normalize_stock_data
 
 default_limit = 100
 
@@ -43,7 +43,7 @@ class FundFlowDataset(BaseDataset):
         from dao.index_kline_process import get_index_kline
         from dao.mapping.base_mapping import obj_2_dataframe
         all_index_df = obj_2_dataframe(get_index_kline("SH000001", default_limit))
-        self.index_df = all_index_df[["timestamp", "close"]]
+        self.index_df = all_index_df.loc[:, ["timestamp", "close"]]
         self.index_df.rename(columns={"close": "index_close"}, inplace=True)
 
     def get_data_set(self):
