@@ -36,7 +36,7 @@ def get_stock_data_greater_then_min_size_with_fund_flow(min_size: int, limit: in
 
 class FundFlowDataset(BaseDataset):
 
-    def __init__(self, chart_size=60, mask_size=3, batch_size=10 ** 5, testing_batch_size=10 ** 3):
+    def __init__(self, chart_size=60, mask_size=3, batch_size=10 ** 5, testing_batch_size=200):
         BaseDataset.__init__(self, chart_size=chart_size, mask_size=mask_size, batch_size=batch_size,
                              testing_batch_size=testing_batch_size)
         # index list
@@ -67,9 +67,9 @@ class FundFlowDataset(BaseDataset):
         self.test_labels = []
         self.testing_data = []
         while len(self.test_labels) < self.testing_batch_size:
-            # the close 20 day as the test data
+            # the close 3 day as the test data
             df = get_stock_data_greater_then_min_size_with_fund_flow(self.min_training_size,
-                                                                     self.min_training_size + 20, self.index_df)
+                                                                     self.min_training_size + 3, self.index_df)
             loop_count = len(df.id) - self.min_training_size
             for offset in range(loop_count):
                 if len(self.percentage_labels) == self.batch_size:
