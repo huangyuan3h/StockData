@@ -25,12 +25,12 @@ class VXXDataset(BaseDataset):
         from dao.index_kline_process import get_index_kline
         from dao.mapping.base_mapping import obj_2_dataframe
         all_index_df = obj_2_dataframe(get_index_kline("SH000001", default_limit))
-        self.index_df = all_index_df.loc[:, ["timestamp", "close"]]
-        self.index_df.rename(columns={"close": "index_close"}, inplace=True)
+        self.index_df = all_index_df.loc[:, ["timestamp", "percent", "turnoverrate"]]
+        self.index_df.rename(columns={"percent": "index_percent", "turnoverrate": "index_turnoverrate"}, inplace=True)
         # VXX list
         all_vxx_df = obj_2_dataframe(get_index_kline("VXX", default_limit))
-        self.vxx_df = all_vxx_df.loc[:, ["timestamp", "close"]]
-        self.vxx_df.rename(columns={"close": "vxx_close"}, inplace=True)
+        self.vxx_df = all_vxx_df.loc[:, ["timestamp", "percent", "turnoverrate"]]
+        self.vxx_df.rename(columns={"percent": "vxx_percent", "turnoverrate": "vxx_turnoverrate"}, inplace=True)
 
     def get_stock_data_greater_then_min_size_with_fund_flow(self, chart_size: int, limit: int) -> DataFrame:
         from dao.fund_flow_process import get_fund_flow_by_code
