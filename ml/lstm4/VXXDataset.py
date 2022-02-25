@@ -1,4 +1,5 @@
 from pandas import DataFrame
+from tensorflow import convert_to_tensor
 
 from ml.data.BaseDataset import BaseDataset
 from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data_by_size, get_change_by_mask_size, \
@@ -66,7 +67,7 @@ class VXXDataset(BaseDataset):
                 self.train_data.append(nd_data.tolist())
                 self.percentage_labels.append(percentage)
 
-        return self.train_data, self.percentage_labels
+        return convert_to_tensor(self.train_data), convert_to_tensor(self.percentage_labels)
 
     def get_test_data_set(self):
         self.test_labels = []
@@ -77,14 +78,14 @@ class VXXDataset(BaseDataset):
                                                                           self.min_training_size + 3)
             loop_count = len(df.id) - self.min_training_size
             for offset in range(loop_count):
-                if len(self.percentage_labels) == self.batch_size:
+                if len(self.test_labels) == self.batch_size:
                     break
                 df2 = get_stock_data_by_size(df, self.min_training_size, offset)
                 nd_data, percentage = get_data_label_by_dataframe(df2, self.mask_size)
                 self.testing_data.append(nd_data.tolist())
                 self.test_labels.append(percentage)
 
-        return self.testing_data, self.test_labels
+        return convert_to_tensor(self.testing_data), convert_to_tensor(self.test_labels)
 
     def get_today_df_by_code(self, code: str):
         df = self.get_stock_data_greater_then_min_size_with_fund_flow(self.chart_size, self.chart_size)
