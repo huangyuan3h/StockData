@@ -31,6 +31,7 @@ def training_model_v2(model_name='lstm4', predict_day=3, batch_size=10, *args, *
 def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwargs):
     if model_name == 'lstm4':
         training_model_v2(model_name, predict_day, batch_size)
+        return
     Factory = get_factory(model_name)
     factory = Factory(predict_day=predict_day)
     ds = factory.data_set
