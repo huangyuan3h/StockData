@@ -1,7 +1,7 @@
 import app
 from ml.lstm4.VXXDataset import VXXDataset
 from ml.lstm4.model import get_lstm4_model
-from ml.plugins.tensorboard_callback import get_tensor_board_callback
+from ml.plugins.tensorboard_callback import get_tensor_board_callback, named_logs
 
 if __name__ == '__main__':
     model = get_lstm4_model()
@@ -16,14 +16,6 @@ if __name__ == '__main__':
 
     tensorboard = get_tensor_board_callback("lstm4", 3)
     tensorboard.set_model(model)
-
-
-    def named_logs(model, logs):
-        result = {}
-        for l in zip(model.metrics_names, logs):
-            result[l[0]] = l[1]
-        return result
-
 
     tensorboard.on_train_batch_end(1, named_logs(model, logs))
     tensorboard.on_test_batch_end(1, named_logs(model, logs2))
