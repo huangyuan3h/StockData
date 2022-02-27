@@ -1,4 +1,5 @@
 from pandas import DataFrame
+from tensorflow.python.framework.ops import convert_to_tensor
 
 from ml.data.BaseDataset import BaseDataset
 from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data_by_size, get_change_by_mask_size, \
@@ -15,10 +16,11 @@ def get_data_label_by_dataframe(df: DataFrame, mask_size=10):
     return nd_data, percentage
 
 
-def get_stock_data_greater_then_min_size_with_fund_flow(min_size: int, limit: int, index_df: DataFrame) -> DataFrame:
+def get_stock_data_greater_then_min_size_with_fund_flow(min_size: int, limit: int, index_df: DataFrame,
+                                                        code=None) -> DataFrame:
     from dao.fund_flow_process import get_fund_flow_by_code
     from dao.mapping.base_mapping import obj_2_dataframe
-    df = get_stock_data_greater_then_min_size(min_size, limit)
+    df = get_stock_data_greater_then_min_size(min_size, limit, code)
     code = df["code"][0]
     fund_flow = obj_2_dataframe(get_fund_flow_by_code(code, limit))
     # merge fund flow to main df
@@ -81,8 +83,20 @@ class FundFlowDataset(BaseDataset):
 
         return self.testing_data, self.test_labels
 
+    def get_test_data_by_codes(self, codes: [str]):
+        self.test_labels = []
+        self.testing_data = []
+        for code in codes:
+            df = get_stock_data_greater_then_min_size_with_fund_flow(self.min_training_size,
+                                                                     self.min_training_size, self.index_df, code=code)
+            nd_data, percentage = get_data_label_by_dataframe(df, self.mask_size)
+            self.testing_data.append(nd_data.tolist())
+            self.test_labels.append(percentage)
+
+        return convert_to_tensor(self.testing_data), convert_to_tensor(self.test_labels)
+
     def get_today_df_by_code(self, code: str):
         df = get_stock_data_greater_then_min_size_with_fund_flow(self.chart_size, self.chart_size,
-                                                                     self.index_df)
+                                                                 self.index_df)
 
         return df

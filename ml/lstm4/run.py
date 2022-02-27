@@ -1,21 +1,28 @@
 import app
+from ml.data.prepare import choose_random_stock_codes
+from ml.lstm3.FundFlowDataset import FundFlowDataset
+from ml.lstm3.LSTM3Factory import LSTM3Factory
+from ml.lstm4.LSTM4Factory import LSTM4Factory
 from ml.lstm4.VXXDataset import VXXDataset
-from ml.lstm4.model import get_lstm4_model
-from ml.plugins.tensorboard_callback import get_tensor_board_callback, named_logs
+from sklearn.metrics import mean_absolute_error
 
 if __name__ == '__main__':
-    model = get_lstm4_model()
+    codes = choose_random_stock_codes(100)
+    ds1 = VXXDataset()
+    X1, y1 = ds1.get_test_data_by_codes(codes)
+    factory1 = LSTM4Factory()
+    model1 = factory1.model
+    predict_y1 = model1.predict(X1)
 
-    ds = VXXDataset(batch_size=1, testing_batch_size=1)
-    x, y = ds.get_data_set()
-    test_x, test_y = ds.get_test_data_set()
-    print("get all the data")
-    logs = model.train_on_batch(x, y)
+    ds2 = FundFlowDataset()
+    X2, y2 = ds2.get_test_data_by_codes(codes)
+    factory2 = LSTM3Factory()
+    model2 = factory2.model
+    predict_y2 = model2.predict(X2)
 
-    logs2 = model.test_on_batch(test_x, test_y)
+    res1 = mean_absolute_error(predict_y1, y1)
+    res2 = mean_absolute_error(predict_y2, y2)
 
-    tensorboard = get_tensor_board_callback("lstm4", 3)
-    tensorboard.set_model(model)
+    print(res1)
+    print(res2)
 
-    tensorboard.on_train_batch_end(1, named_logs(model, logs))
-    tensorboard.on_test_batch_end(1, named_logs(model, logs2))

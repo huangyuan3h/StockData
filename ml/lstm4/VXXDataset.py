@@ -19,7 +19,7 @@ def get_data_label_by_dataframe(df: DataFrame, mask_size=10):
 
 class VXXDataset(BaseDataset):
 
-    def __init__(self, chart_size=60, mask_size=3, batch_size=1000, testing_batch_size=300):
+    def __init__(self, chart_size=60, mask_size=3, batch_size=1000, testing_batch_size=1000):
         BaseDataset.__init__(self, chart_size=chart_size, mask_size=mask_size, batch_size=batch_size,
                              testing_batch_size=testing_batch_size)
         # index list
@@ -33,10 +33,10 @@ class VXXDataset(BaseDataset):
         self.vxx_df = all_vxx_df.loc[:, ["timestamp", "percent", "turnoverrate"]]
         self.vxx_df.rename(columns={"percent": "vxx_percent", "turnoverrate": "vxx_turnoverrate"}, inplace=True)
 
-    def get_stock_data_greater_then_min_size_with_fund_flow(self, chart_size: int, limit: int) -> DataFrame:
+    def get_stock_data_greater_then_min_size_with_fund_flow(self, chart_size: int, limit: int, code=None) -> DataFrame:
         from dao.fund_flow_process import get_fund_flow_by_code
         from dao.mapping.base_mapping import obj_2_dataframe
-        df = get_stock_data_greater_then_min_size(chart_size, limit)
+        df = get_stock_data_greater_then_min_size(chart_size, limit, code=code)
         code = df["code"][0]
         fund_flow = obj_2_dataframe(get_fund_flow_by_code(code, limit))
         # merge fund flow to main df
@@ -84,6 +84,18 @@ class VXXDataset(BaseDataset):
                 nd_data, percentage = get_data_label_by_dataframe(df2, self.mask_size)
                 self.testing_data.append(nd_data.tolist())
                 self.test_labels.append(percentage)
+
+        return convert_to_tensor(self.testing_data), convert_to_tensor(self.test_labels)
+
+    def get_test_data_by_codes(self, codes: [str]):
+        self.test_labels = []
+        self.testing_data = []
+        for code in codes:
+            df = self.get_stock_data_greater_then_min_size_with_fund_flow(self.min_training_size,
+                                                                          self.min_training_size, code=code)
+            nd_data, percentage = get_data_label_by_dataframe(df, self.mask_size)
+            self.testing_data.append(nd_data.tolist())
+            self.test_labels.append(percentage)
 
         return convert_to_tensor(self.testing_data), convert_to_tensor(self.test_labels)
 
