@@ -30,7 +30,9 @@ def get_stock_data_greater_then_min_size(min_size=70, total_size=500, code=None)
         df = get_stock_data(size=total_size, code=code)
         if len(df.index) >= min_size:
             return df
-
+        elif code is not None:
+            print(f"{code} size is not larger than min size")
+            return None
 
 def get_stock_data_by_size(df: DataFrame, size=70, offset=0) -> typing.Union[None, DataFrame]:
     if (offset + size) <= len(df.index):

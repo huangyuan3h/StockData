@@ -7,7 +7,7 @@ from ml.lstm4.VXXDataset import VXXDataset
 from sklearn.metrics import mean_absolute_error
 
 if __name__ == '__main__':
-    codes = choose_random_stock_codes(100)
+    codes = choose_random_stock_codes(500)
     ds1 = VXXDataset()
     X1, y1 = ds1.get_test_data_by_codes(codes)
     factory1 = LSTM4Factory()

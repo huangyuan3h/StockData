@@ -21,6 +21,8 @@ def get_stock_data_greater_then_min_size_with_fund_flow(min_size: int, limit: in
     from dao.fund_flow_process import get_fund_flow_by_code
     from dao.mapping.base_mapping import obj_2_dataframe
     df = get_stock_data_greater_then_min_size(min_size, limit, code)
+    if df is None:
+        return None
     code = df["code"][0]
     fund_flow = obj_2_dataframe(get_fund_flow_by_code(code, limit))
     # merge fund flow to main df
@@ -89,6 +91,9 @@ class FundFlowDataset(BaseDataset):
         for code in codes:
             df = get_stock_data_greater_then_min_size_with_fund_flow(self.min_training_size,
                                                                      self.min_training_size, self.index_df, code=code)
+            if df is None:
+                print(f"skip {code} because it is none")
+                continue
             nd_data, percentage = get_data_label_by_dataframe(df, self.mask_size)
             self.testing_data.append(nd_data.tolist())
             self.test_labels.append(percentage)
