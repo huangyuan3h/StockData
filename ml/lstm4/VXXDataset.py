@@ -19,7 +19,7 @@ def get_data_label_by_dataframe(df: DataFrame, mask_size=10):
 
 class VXXDataset(BaseDataset):
 
-    def __init__(self, chart_size=60, mask_size=3, batch_size=1000, testing_batch_size=1000):
+    def __init__(self, chart_size=60, mask_size=3, batch_size=1000, testing_batch_size=300):
         BaseDataset.__init__(self, chart_size=chart_size, mask_size=mask_size, batch_size=batch_size,
                              testing_batch_size=testing_batch_size)
         # index list
@@ -73,9 +73,9 @@ class VXXDataset(BaseDataset):
         self.test_labels = []
         self.testing_data = []
         while len(self.test_labels) < self.testing_batch_size:
-            # the close 3 day as the test data
+            # the close 1 day as the test data
             df = self.get_stock_data_greater_then_min_size_with_fund_flow(self.min_training_size,
-                                                                          self.min_training_size + 3)
+                                                                          self.min_training_size + 1)
             loop_count = len(df.id) - self.min_training_size
             for offset in range(loop_count):
                 if len(self.test_labels) == self.batch_size:
