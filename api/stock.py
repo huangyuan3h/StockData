@@ -1,8 +1,8 @@
 from api.response_code import OK
-from tasks import sync_stocks
 
 
 def sync_stock_list():
+    from tasks import sync_stocks
     """
     sync all stock data
     """
