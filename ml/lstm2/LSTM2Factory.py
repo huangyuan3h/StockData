@@ -4,7 +4,7 @@ from tensorflow import keras
 
 from ml.BaseModelFactory import BaseModelFactory
 from ml.data.BaseDataset import BaseDataset
-from ml.data.prepare import get_stock_data, normalize_stock_data
+from ml.data.prepare import normalize_stock_data
 from ml.lstm2.model import get_lstm2_model
 
 
@@ -21,9 +21,13 @@ class LSTM2Factory(BaseModelFactory):
         """
         model:
         """
-        self.model = get_lstm2_model(n_steps=60, n_features=14,
-                                     lstm_layer_size=1024) if new_model or not os.path.isdir(
-            self.path) else keras.models.load_model(self.path)
+        if new_model or not os.path.isdir(self.path):
+            self.model = get_lstm2_model(n_steps=60, n_features=14,
+                                         lstm_layer_size=1024)
+            print(f"{self.path} new model generated")
+        else:
+            keras.models.load_model(self.path)
+            print(f"{self.path} model loaded..")
 
     def predict_today_by_code(self, code: str):
         df = self.data_set.get_today_df_by_code(code)
