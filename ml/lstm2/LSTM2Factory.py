@@ -22,7 +22,7 @@ class LSTM2Factory(BaseModelFactory):
         model:
         """
         self.model = get_lstm2_model(n_steps=60, n_features=14,
-                                     lstm_layer_size=1024) if new_model or not os.path.isfile(
+                                     lstm_layer_size=1024) if new_model or not os.path.isdir(
             self.path) else keras.models.load_model(path)
 
     def predict_today_by_code(self, code: str):

@@ -21,7 +21,7 @@ class LSTM4Factory(BaseModelFactory):
         """
         model:
         """
-        self.model = get_lstm4_model() if new_model or not os.path.isfile(
+        self.model = get_lstm4_model() if new_model or not os.path.isdir(
             self.path) else keras.models.load_model(path)
 
     def predict_today_by_code(self, code: str):
