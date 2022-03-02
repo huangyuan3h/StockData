@@ -1,6 +1,7 @@
 from log import log
 from ml.get_factory import get_factory
 from ml.plugins.check_point_callback import get_check_point_callback
+from ml.plugins.early_stop_callback import get_early_stop_callback
 from ml.plugins.tensorboard_callback import get_tensor_board_callback
 from task_manager import task_manager
 
@@ -22,7 +23,9 @@ def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwa
                 epochs=30,
                 validation_data=(testing_X, testing_y),
                 callbacks=[get_tensor_board_callback(model_name=model_name, predict_day=predict_day),
-                           get_check_point_callback(model_name=model_name, predict_day=predict_day)],
+                           get_check_point_callback(model_name=model_name, predict_day=predict_day),
+                           get_early_stop_callback()
+                           ],
                 verbose=0,
                 shuffle=True
             )
