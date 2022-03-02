@@ -17,7 +17,7 @@ class BaseModelFactory(ABC):
         """
         model:
         """
-        self.path = path if path is not None else f'model_data/{name}_{predict_day}.tf'
+        self.path = path if path is not None else f'model_data/{name}_{predict_day}'
         self.model = None
 
     def save(self):
