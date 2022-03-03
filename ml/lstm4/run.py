@@ -9,12 +9,24 @@ from sklearn.metrics import mean_absolute_error
 if __name__ == '__main__':
     factory1 = LSTM4Factory(batch_size=1)
     model = factory1.model
+    model.summary()
+
+
     factory1.save()
     factory1.load()
-
+    #
     ds = factory1.data_set
     X,y = ds.get_data_set()
     model.fit(X,y)
+    predict_y = model.predict(X)
+    print(predict_y)
+    factory1.save()
+    factory1.load()
+
+    X,y = ds.get_data_set()
+    model.fit(X,y)
+    predict_y = model.predict(X)
+    print(predict_y)
 
 
     # codes = choose_random_stock_codes(10)
