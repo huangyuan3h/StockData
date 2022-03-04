@@ -3,7 +3,7 @@ from flask import Flask
 
 def register_router(app: Flask):
     from api.tasks import get_task
-    from api.stock import sync_stocks
+    from api.stock import sync_stock_list
     from api.kline import get_stock_data, sync_stock_by_code, sync_all_stock
     from api.index_kline import sync_index_kline_by_code
     from api.lstm import training_lstm, predict_n_day_by_stock_code, generate_n_day_report
@@ -12,7 +12,7 @@ def register_router(app: Flask):
 
     app.add_url_rule('/tasks', 'tasks', methods=['get'], view_func=get_task)
     # functional endpoint
-    app.add_url_rule('/sync/stocks', 'sync_stocks', methods=['get'], view_func=sync_stocks)
+    app.add_url_rule('/sync/stocks', 'sync_stocks', methods=['get'], view_func=sync_stock_list)
 
     app.add_url_rule('/sync/kline/all', 'sync_all_stock', methods=['get'], view_func=sync_all_stock)
 

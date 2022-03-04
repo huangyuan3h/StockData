@@ -1,7 +1,7 @@
 import random
 import typing
-import numpy
 
+import numpy
 from pandas import DataFrame
 from sklearn.impute import SimpleImputer
 
@@ -12,6 +12,12 @@ def choose_a_random_stock_code() -> str:
     return random.choice(stock_list)
 
 
+def choose_random_stock_codes(num: int) -> [str]:
+    from dao.stock_process import get_stock_code_list
+    stock_list = get_stock_code_list()
+    return random.sample(stock_list, num)
+
+
 def get_stock_data(code=None, size=500) -> DataFrame:
     from dao.kline_process import get_kline_by_code
     from dao.mapping.base_mapping import obj_2_dataframe
@@ -19,12 +25,14 @@ def get_stock_data(code=None, size=500) -> DataFrame:
     return obj_2_dataframe(get_kline_by_code(code, size))
 
 
-def get_stock_data_greater_then_min_size(min_size=70, total_size=500) -> DataFrame:
+def get_stock_data_greater_then_min_size(min_size=70, total_size=500, code=None) -> DataFrame:
     while True:
-        df = get_stock_data(size=total_size)
+        df = get_stock_data(size=total_size, code=code)
         if len(df.index) >= min_size:
             return df
-
+        elif code is not None:
+            print(f"{code} size is not larger than min size")
+            return None
 
 def get_stock_data_by_size(df: DataFrame, size=70, offset=0) -> typing.Union[None, DataFrame]:
     if (offset + size) <= len(df.index):
@@ -41,7 +49,7 @@ def get_change_by_mask_size(df: DataFrame, mask_size=10) -> float:
 
 def normalize_stock_data(data: DataFrame) -> DataFrame:
     return_data = data.copy()
-    return_data.sort_values(by="timestamp",  inplace=True)  # reverse order for lstm
+    return_data.sort_values(by="timestamp", inplace=True)  # reverse order for lstm
     ## delete code id timestamp
     del return_data['id']
     del return_data['code']

@@ -17,11 +17,11 @@ class BaseModelFactory(ABC):
         """
         model:
         """
-        self.path = path if path is not None else f'model_data/{name}_{predict_day}.tf'
+        self.path = path if path is not None else f'model_data/{name}_{predict_day}'
         self.model = None
 
     def save(self):
-        keras.models.save_model(self.model, self.path, overwrite=True, include_optimizer=True, save_format='tf')
+        self.model.save(self.path, overwrite=True, include_optimizer=True)
 
     def load(self, path=None):
         self.model = keras.models.load_model(path if path is not None else self.path)

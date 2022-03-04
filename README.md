@@ -77,6 +77,8 @@ install tensorflow:
 ```bash
 conda install -c conda-forge tensorflow
 pip install tensorflow
+or
+pip install tf-nightly
 ```
 
 ## start project
