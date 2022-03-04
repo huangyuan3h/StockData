@@ -19,7 +19,7 @@ def get_data_label_by_dataframe(df: DataFrame, mask_size=10):
 
 class VXXDataset(BaseDataset):
 
-    def __init__(self, chart_size=60, mask_size=3, batch_size=1000, testing_batch_size=500):
+    def __init__(self, chart_size=60, mask_size=3, batch_size=1000, testing_batch_size=300):
         BaseDataset.__init__(self, chart_size=chart_size, mask_size=mask_size, batch_size=batch_size,
                              testing_batch_size=testing_batch_size)
         # index list
