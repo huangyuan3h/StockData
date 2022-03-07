@@ -23,6 +23,7 @@ def predict_single(c: str, factory) -> None:
     with session_maker() as session:
         p = factory.predict_today_by_code(c)
         if p is None or math.isnan(p) or last_record is None:
+            log.info(f"data error p is {p}")
             return
         report = Report(code=c, predict=p, type=current_type,
                         timestamp=last_record.timestamp)
