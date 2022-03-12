@@ -38,5 +38,5 @@ def get_all_code_list():
 @task_manager.celery.task()
 def sync_kline_day_all(*args, **kwargs):
     codes = get_all_code_list()
-    Parallel(n_jobs=5, backend="threading")(delayed(sync_kline_by_code)(code) for code in codes)
+    Parallel(n_jobs=2, backend="threading")(delayed(sync_kline_by_code)(code) for code in codes)
     log.info("sync the kline task finished!!!")

@@ -65,13 +65,19 @@ if __name__ == '__main__':
     model1 = factory1.model
     predict_y1 = model1.predict(X1)
 
-    factory2 =LSTM4Factory(path='../../model_data/lstm4_3_checkpoint_0305')
+    factory2 =LSTM4Factory(path='../../model_data/lstm4_3_checkpoint_0311')
     model2 = factory2.model
     predict_y2 = model2.predict(X1)
 
+    factory3 =LSTM4Factory(path='../../model_data/lstm4_3_checkpoint_0312')
+    model3 = factory3.model
+    predict_y3 = model3.predict(X1)
+
     res1 = mean_absolute_error(predict_y1, y1)
     res2 = mean_absolute_error(predict_y2, y1)
+    res3 = mean_absolute_error(predict_y3, y1)
 
     print(res1)
     print(res2)
+    print(res3)
 
