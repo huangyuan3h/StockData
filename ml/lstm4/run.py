@@ -18,11 +18,11 @@ if __name__ == '__main__':
     model1 = factory1.model
     predict_y1 = model1.predict(X1)
 
-    factory2 =LSTM4Factory(path='../../model_data/lstm4_3_checkpoint_0312')
+    factory2 =LSTM4Factory(path='../../model_data/lstm4_3_checkpoint_0326')
     model2 = factory2.model
     predict_y2 = model2.predict(X1)
 
-    factory3 =LSTM4Factory(path='../../model_data/lstm4_3_checkpoint_0316')
+    factory3 =LSTM4Factory(path='../../model_data/lstm4_3_checkpoint_0328')
     model3 = factory3.model
     predict_y3 = model3.predict(X1)
 
