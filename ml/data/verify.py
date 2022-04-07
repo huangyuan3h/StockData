@@ -5,12 +5,27 @@ from ml.data.BaseDataset import BaseDataset
 from ml.data.prepare import choose_random_stock_codes
 
 
+def verify_model(factory: BaseModelFactory, code_num=100) -> float:
+    codes = choose_random_stock_codes(code_num)
+    ds = factory.ds
+    X, y = ds.get_test_data_by_codes(codes)
+    model = factory.model
+    predict_y = model.predict(X)
+    res = -1
+    try:
+        res = mean_absolute_error(predict_y, y)
+    except BaseException as err:
+        print(f"Unexpected {err=}, {type(err)=}")
+    finally:
+        return res
+
+
 def verify_models(Factory: BaseModelFactory, DataSet: BaseDataset, code_num=500, mask_size=3, paths=[]) -> []:
     codes = choose_random_stock_codes(code_num)
     ds = DataSet(mask_size=mask_size)
     X, y = ds.get_test_data_by_codes(codes)
 
-    result =[]
+    result = []
     for path in paths:
         factory = Factory(path=path)
         model = factory.model

@@ -1,11 +1,20 @@
-import keras.backend as K
-
 from log import log
+from ml.BaseModelFactory import BaseModelFactory
+from ml.data.verify import verify_model
 from ml.get_factory import get_factory
 from ml.plugins.check_point_callback import get_check_point_callback
 from ml.plugins.early_stop_callback import get_early_stop_callback
 from ml.plugins.tensorboard_callback import get_tensor_board_callback
 from task_manager import task_manager
+
+
+def save_model(factory: BaseModelFactory, num=0) -> bool:
+    res = verify_model(factory, code_num=50)
+    if res > 0:
+        factory.save()
+        log.info(f"training No {num},saved with mse{res}")
+        return True
+    return False
 
 
 @task_manager.celery.task()
@@ -32,8 +41,10 @@ def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwa
                 verbose=0,
                 shuffle=True
             )
-            factory.save()
-            log.info(f"training No {i},saved!")
+            res = save_model(factory, i)
+            if not res:
+                return
+
 
         except BaseException as err:
             print(f"Unexpected {err=}, {type(err)=}")

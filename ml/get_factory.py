@@ -1,6 +1,7 @@
+from ml.BaseModelFactory import BaseModelFactory
 
 
-def get_factory(model_name='lstm'):
+def get_factory(model_name='lstm') -> BaseModelFactory:
     from ml.lstm.LSTMFactory import LSTMFactory
     from ml.lstm2.LSTM2Factory import LSTM2Factory
     from ml.lstm3.LSTM3Factory import LSTM3Factory

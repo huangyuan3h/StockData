@@ -7,7 +7,7 @@ if __name__ == '__main__':
     """
     lstm4_3 data vs lstm4_3 checkpoint
     """
-    res = verify_models(Factory=LSTM4Factory, DataSet=VXXDataset, code_num=500, mask_size=3,
+    res = verify_models(Factory=LSTM4Factory, DataSet=VXXDataset, code_num=300, mask_size=3,
                   paths=['../../model_data/lstm4_3',
                          '../../model_data/lstm4_3_checkpoint_0330',
                          '../../model_data/lstm4_3_checkpoint_0402'])
