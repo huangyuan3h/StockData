@@ -7,7 +7,7 @@ from ml.data.prepare import choose_random_stock_codes
 
 def verify_model(factory: BaseModelFactory, code_num=100) -> float:
     codes = choose_random_stock_codes(code_num)
-    ds = factory.ds
+    ds = factory.data_set
     X, y = ds.get_test_data_by_codes(codes)
     model = factory.model
     predict_y = model.predict(X)

@@ -17,12 +17,17 @@ def save_model(factory: BaseModelFactory, num=0) -> bool:
     return False
 
 
-@task_manager.celery.task()
-def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwargs):
+def init_model(model_name='lstm', predict_day=3):
     Factory = get_factory(model_name)
     factory = Factory(predict_day=predict_day)
     ds = factory.data_set
     model = factory.model
+    return ds, model, factory
+
+
+@task_manager.celery.task()
+def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwargs):
+    ds, model, factory = init_model(model_name=model_name, predict_day=predict_day)
     # testing_X, testing_y = ds.get_test_data_set()
     for i in range(batch_size):
         try:
@@ -43,8 +48,8 @@ def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwa
             )
             res = save_model(factory, i)
             if not res:
-                return
-
+                ds, model, factory = init_model(model_name=model_name, predict_day=predict_day)
+                log.info(f"restore the previous model!!!")
 
         except BaseException as err:
             print(f"Unexpected {err=}, {type(err)=}")
