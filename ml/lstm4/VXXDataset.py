@@ -6,7 +6,7 @@ from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data
     normalize_stock_data
 from utils.dateUtils import string_to_datetime
 
-default_limit = 130
+default_limit = 140
 
 
 def get_data_label_by_dataframe(df: DataFrame, mask_size=10):
