@@ -1,4 +1,4 @@
-from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import mean_squared_error
 
 from ml.BaseModelFactory import BaseModelFactory
 from ml.data.BaseDataset import BaseDataset
@@ -13,7 +13,7 @@ def verify_model(factory: BaseModelFactory, code_num=100) -> float:
     predict_y = model.predict(X)
     res = -1
     try:
-        res = mean_absolute_error(predict_y, y)
+        res = mean_squared_error(predict_y, y)
     except BaseException as err:
         print(f"Unexpected {err=}, {type(err)=}")
     finally:
@@ -30,7 +30,7 @@ def verify_models(Factory: BaseModelFactory, DataSet: BaseDataset, code_num=500,
         factory = Factory(path=path)
         model = factory.model
         predict_y = model.predict(X)
-        res = mean_absolute_error(predict_y, y)
+        res = mean_squared_error(predict_y, y)
         result.append(res)
     return result
 
@@ -39,4 +39,4 @@ def verify_by_mean_absolute_error(model):
     ds = BaseDataset(60, 10, 100)
     X, y = ds.get_data_set()
     predict = model.predict(X)
-    return mean_absolute_error(y, predict)
+    return mean_squared_error(y, predict)

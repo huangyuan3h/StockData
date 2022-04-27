@@ -6,6 +6,7 @@ def get_factory(model_name='lstm') -> BaseModelFactory:
     from ml.lstm2.LSTM2Factory import LSTM2Factory
     from ml.lstm3.LSTM3Factory import LSTM3Factory
     from ml.lstm4.LSTM4Factory import LSTM4Factory
+    from ml.lstm5.LSTM4Factory import LSTM5Factory
 
     if model_name == 'lstm':
         return LSTMFactory
@@ -15,3 +16,5 @@ def get_factory(model_name='lstm') -> BaseModelFactory:
         return LSTM3Factory
     if model_name == 'lstm4':
         return LSTM4Factory
+    if model_name == 'lstm5':
+        return LSTM5Factory
