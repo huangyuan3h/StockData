@@ -5,6 +5,7 @@ from ml.data.BaseDataset import BaseDataset
 from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data_by_size, get_change_by_mask_size, \
     normalize_stock_data
 from utils.dateUtils import string_to_datetime
+from random import randint
 
 default_limit = 150
 
@@ -94,11 +95,15 @@ class VXXDataset(BaseDataset):
         self.testing_data = []
         for code in codes:
             df = self.get_stock_data_greater_then_min_size_with_fund_flow(self.min_training_size,
-                                                                          self.min_training_size, code=code)
+                                                                          default_limit, code=code)
             if df is None:
                 print(f"skip {code} because it is none")
                 continue
-            nd_data, percentage = get_data_label_by_dataframe(df, self.mask_size)
+            loop_count = len(df.id) - self.min_training_size
+            offset = randint(0, loop_count)
+            df2 = get_stock_data_by_size(df, self.min_training_size, offset)
+
+            nd_data, percentage = get_data_label_by_dataframe(df2, self.mask_size)
             self.testing_data.append(nd_data.tolist())
             self.test_labels.append(percentage)
 
