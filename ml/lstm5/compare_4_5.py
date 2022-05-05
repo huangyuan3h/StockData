@@ -8,9 +8,10 @@ if __name__ == '__main__':
     lstm4_3 data vs lstm4_3 checkpoint
     """
     res = verify_models(Factory=LSTM4Factory, DataSet=VXXDataset, code_num=500, mask_size=3,
-                  paths=['../../model_data/lstm5_3_dropout_0.1',
+                  paths=['../../model_data/lstm5_3',
+                         '../../model_data/lstm5_3_checkpoint_0503',
                          '../../model_data/lstm4_3',
-                         '../../model_data/lstm5_3'])
+                         ], kline_range = None)
 
     """
     lstm4_1 data vs lstm4_1 checkpoint

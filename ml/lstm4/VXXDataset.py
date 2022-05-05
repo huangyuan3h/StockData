@@ -90,12 +90,12 @@ class VXXDataset(BaseDataset):
 
         return convert_to_tensor(self.testing_data), convert_to_tensor(self.test_labels)
 
-    def get_test_data_by_codes(self, codes: [str]):
+    def get_test_data_by_codes(self, codes: [str], kline_range = default_limit):
         self.test_labels = []
         self.testing_data = []
         for code in codes:
             df = self.get_stock_data_greater_then_min_size_with_fund_flow(self.min_training_size,
-                                                                          default_limit, code=code)
+                                                                          kline_range, code=code)
             if df is None:
                 print(f"skip {code} because it is none")
                 continue
