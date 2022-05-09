@@ -21,7 +21,7 @@ def verify_model(factory: BaseModelFactory, code_num=100) -> float:
 
 
 def verify_models(Factory: BaseModelFactory, DataSet: BaseDataset, code_num=500, mask_size=3, paths=[],
-                  kline_range=None) -> []:
+                  kline_range=150) -> []:
     codes = choose_random_stock_codes(code_num)
     ds = DataSet(mask_size=mask_size)
     X, y = ds.get_test_data_by_codes(codes, kline_range=kline_range)
