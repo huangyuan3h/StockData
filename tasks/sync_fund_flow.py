@@ -1,5 +1,6 @@
-from joblib import Parallel, delayed
+import time
 
+from joblib import Parallel, delayed
 from dao.fund_flow_process import get_last
 from eastmoney.fund_flow import get_data_by_code
 from log import log
@@ -30,5 +31,20 @@ def sync_fund_flow_by_code(code: str):
 @task_manager.celery.task()
 def sync_all_fund_flow(*args, **kwargs):
     codes = get_all_code_list()
-    Parallel(n_jobs=30, backend="threading")(delayed(sync_fund_flow_by_code)(code) for code in codes)
-    log.info("sync the fund flow task finished!!!")
+
+    batch_number = 500
+    current_batch = 0
+
+    while current_batch != int(len(codes)/batch_number + 1):
+        batch_codes = codes[current_batch * batch_number:(current_batch + 1) * batch_number]
+        try:
+            Parallel(n_jobs=30, backend="threading")(delayed(sync_fund_flow_by_code)(code) for code in batch_codes)
+            current_batch += 1
+        except BaseException as err:
+            log.error(f"sync the fund flow batch No.{current_batch} error: {err=}, {type(err)=}")
+            continue
+        finally:
+            log.info(f"sync the fund flow batch No.{current_batch} finished")
+            time.sleep(60)
+    log.info("sync all the fund flow task finished!!!")
+
