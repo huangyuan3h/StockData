@@ -40,7 +40,7 @@ def training_model(model_name='lstm', predict_day=3, batch_size=10, *args, **kwa
                 validation_split=0.3,
                 # validation_data=(testing_X, testing_y),
                 callbacks=[get_tensor_board_callback(model_name=model_name, predict_day=predict_day),
-                           get_check_point_callback(model_name=model_name, predict_day=predict_day),
+                           # get_check_point_callback(model_name=model_name, predict_day=predict_day),
                            get_early_stop_callback(min_delta=0.00005, patience=2)
                            ],
                 verbose=0,
