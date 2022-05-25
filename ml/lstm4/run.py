@@ -9,8 +9,8 @@ if __name__ == '__main__':
     """
     # res = verify_models(Factory=LSTM4Factory, DataSet=VXXDataset, code_num=500, mask_size=3,
     #               paths=['../../model_data/lstm4_3',
-    #                      '../../model_data/lstm4_3_checkpoint_0402',
-    #                      '../../model_data/lstm4_3_checkpoint_0415'])
+    #                      '../../model_data/lstm4_3_checkpoint_0415',
+    #                      '../../model_data/lstm4_3_checkpoint_0523'])
 
     """
     lstm4_1 data vs lstm4_1 checkpoint
@@ -22,8 +22,8 @@ if __name__ == '__main__':
 
     res = verify_models(Factory=LSTM4Factory, DataSet=VXXDataset, code_num=500, mask_size=5,
                  paths=['../../model_data/lstm4_5',
-                        '../../model_data/lstm4_5_checkpoint_0416',
-                        '../../model_data/lstm4_5_checkpoint_0521',
+                        '../../model_data/lstm4_5_checkpoint_0422',
+                        '../../model_data/lstm4_5_checkpoint_0524',
                         ])
 
     # res = verify_models(Factory=LSTM4Factory, DataSet=VXXDataset, code_num=300, mask_size=10,
