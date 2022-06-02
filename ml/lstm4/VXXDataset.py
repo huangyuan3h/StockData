@@ -7,7 +7,7 @@ from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data
 from utils.dateUtils import string_to_datetime
 from random import randint
 
-default_limit = 150
+default_limit = 170
 
 
 def get_data_label_by_dataframe(df: DataFrame, mask_size=10):

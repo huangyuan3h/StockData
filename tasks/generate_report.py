@@ -33,8 +33,8 @@ def predict_single(c: str, factory) -> None:
 
 @task_manager.celery.task()
 def generate_report(model_name='lstm', predict_day=3, *args, **kwargs):
-    from dao.kline_process import get_stock_code_list_200_capital
-    stock_code_list = get_stock_code_list_200_capital()
+    from dao.kline_process import get_stock_code_list_100_capital
+    stock_code_list = get_stock_code_list_100_capital()
     Factory = get_factory(model_name)
     factory = Factory(predict_day=predict_day)
     Parallel(n_jobs=20, backend="threading")(delayed(predict_single)(code, factory) for code in stock_code_list)
