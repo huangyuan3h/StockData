@@ -11,7 +11,7 @@ if __name__ == '__main__':
                         paths=[
                             '../../model_data/lstm4_3',
                             '../../model_data/lstm5_3',
-                            '../../model_data/lstm5_3_checkpoint_0601',
+                            '../../model_data/lstm5_3_checkpoint_0605',
                         ])
 
     """
