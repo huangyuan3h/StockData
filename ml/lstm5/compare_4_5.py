@@ -10,8 +10,7 @@ if __name__ == '__main__':
     res = verify_models(Factory=LSTM4Factory, DataSet=VXXDataset, code_num=500, mask_size=3,
                         paths=[
                             '../../model_data/lstm4_3',
-                            '../../model_data/lstm5_3',
-                            '../../model_data/lstm5_3_checkpoint_0605',
+                            '../../model_data/lstm5_3_checkpoint_0608',
                         ])
 
     """
