@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from os.path import abspath
 
 from tensorflow import keras
 
@@ -17,8 +18,10 @@ class BaseModelFactory(ABC):
         """
         model:
         """
-        self.path = path if path is not None else f'model_data/{name}_{predict_day}'
+
+        self.path = abspath(path) if path is not None else abspath(f'model_data/{name}_{predict_day}')
         self.model = None
+        self.data_set = None
 
     def save(self):
         self.model.save(self.path, overwrite=True, include_optimizer=True)

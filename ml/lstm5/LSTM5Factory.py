@@ -5,11 +5,11 @@ from tensorflow import keras
 from ml.BaseModelFactory import BaseModelFactory
 from ml.data.prepare import normalize_stock_data
 from ml.lstm4.VXXDataset import VXXDataset
-from ml.lstm4.model import get_lstm4_model
+from ml.lstm5.model import get_lstm5_model
 
 
-class LSTM4Factory(BaseModelFactory):
-    def __init__(self, name='lstm4', predict_day=3, chart_size=60, batch_size=4000, new_model=False, path=None):
+class LSTM5Factory(BaseModelFactory):
+    def __init__(self, name='lstm5', predict_day=3, chart_size=60, batch_size=4000, new_model=False, path=None):
         """
         data part
         """
@@ -22,7 +22,7 @@ class LSTM4Factory(BaseModelFactory):
         model:
         """
         if new_model or not os.path.isdir(self.path):
-            self.model = get_lstm4_model()
+            self.model = get_lstm5_model()
             print(f"{self.path} new model generated")
         else:
             self.model = keras.models.load_model(self.path)

@@ -6,7 +6,6 @@ from joblib import Parallel, delayed
 from log import log
 from ml.get_factory import get_factory
 from task_manager import task_manager
-from tasks.sync_kline import get_all_code_list
 
 
 def predict_single(c: str, factory) -> None:
@@ -23,6 +22,7 @@ def predict_single(c: str, factory) -> None:
     with session_maker() as session:
         p = factory.predict_today_by_code(c)
         if p is None or math.isnan(p) or last_record is None:
+            log.info(f"data error p is {p}")
             return
         report = Report(code=c, predict=p, type=current_type,
                         timestamp=last_record.timestamp)
@@ -33,7 +33,8 @@ def predict_single(c: str, factory) -> None:
 
 @task_manager.celery.task()
 def generate_report(model_name='lstm', predict_day=3, *args, **kwargs):
-    stock_code_list = get_all_code_list()
+    from dao.kline_process import get_stock_code_list_100_capital
+    stock_code_list = get_stock_code_list_100_capital()
     Factory = get_factory(model_name)
     factory = Factory(predict_day=predict_day)
     Parallel(n_jobs=20, backend="threading")(delayed(predict_single)(code, factory) for code in stock_code_list)

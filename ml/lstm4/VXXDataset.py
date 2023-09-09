@@ -5,8 +5,9 @@ from ml.data.BaseDataset import BaseDataset
 from ml.data.prepare import get_stock_data_greater_then_min_size, get_stock_data_by_size, get_change_by_mask_size, \
     normalize_stock_data
 from utils.dateUtils import string_to_datetime
+from random import randint
 
-default_limit = 100
+default_limit = 170
 
 
 def get_data_label_by_dataframe(df: DataFrame, mask_size=10):
@@ -19,7 +20,7 @@ def get_data_label_by_dataframe(df: DataFrame, mask_size=10):
 
 class VXXDataset(BaseDataset):
 
-    def __init__(self, chart_size=60, mask_size=3, batch_size=1000, testing_batch_size=300):
+    def __init__(self, chart_size=60, mask_size=3, batch_size=3000, testing_batch_size=400):
         BaseDataset.__init__(self, chart_size=chart_size, mask_size=mask_size, batch_size=batch_size,
                              testing_batch_size=testing_batch_size)
         # index list
@@ -89,16 +90,20 @@ class VXXDataset(BaseDataset):
 
         return convert_to_tensor(self.testing_data), convert_to_tensor(self.test_labels)
 
-    def get_test_data_by_codes(self, codes: [str]):
+    def get_test_data_by_codes(self, codes: [str], kline_range = default_limit):
         self.test_labels = []
         self.testing_data = []
         for code in codes:
             df = self.get_stock_data_greater_then_min_size_with_fund_flow(self.min_training_size,
-                                                                          self.min_training_size, code=code)
+                                                                          kline_range, code=code)
             if df is None:
                 print(f"skip {code} because it is none")
                 continue
-            nd_data, percentage = get_data_label_by_dataframe(df, self.mask_size)
+            loop_count = len(df.id) - self.min_training_size
+            offset = randint(0, loop_count)
+            df2 = get_stock_data_by_size(df, self.min_training_size, offset)
+
+            nd_data, percentage = get_data_label_by_dataframe(df2, self.mask_size)
             self.testing_data.append(nd_data.tolist())
             self.test_labels.append(percentage)
 

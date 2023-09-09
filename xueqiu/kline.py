@@ -28,7 +28,7 @@ HEADERS = {
     'Cookie': cookieManager.get_cookies(),
 }
 
-start_date = 1514736000000  # 2018-01-01
+start_date = 1609459200000  # 2021-01-01
 
 one_day = 86400000  # 1 day millisecond
 
